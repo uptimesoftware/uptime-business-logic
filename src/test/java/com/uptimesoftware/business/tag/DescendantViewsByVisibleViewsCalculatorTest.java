@@ -105,7 +105,7 @@ public class DescendantViewsByVisibleViewsCalculatorTest {
 	}
 
 	private void setParent(Long child, Long parent) {
-		final ViewIdTreeNodeImpl relationship = new ViewIdTreeNodeImpl(child, parent);
+		final TagIdTreeNodeImpl relationship = new TagIdTreeNodeImpl(child, parent);
 		viewIdTree.remove(relationship);
 		viewIdTree.add(relationship);
 	}

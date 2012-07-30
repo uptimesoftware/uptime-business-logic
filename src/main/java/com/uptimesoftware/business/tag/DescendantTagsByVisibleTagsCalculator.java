@@ -18,10 +18,10 @@ public class DescendantTagsByVisibleTagsCalculator {
 		}
 	}
 
-	public Set<Long> getDescendantTagIds(Iterable<Long> viewIds) {
+	public Set<Long> getDescendantTagIds(Iterable<Long> tagIds) {
 		Set<Long> decendants = Sets.newHashSet();
-		for (Long viewId : viewIds) {
-			collectDescendantsOf(viewId, decendants);
+		for (Long tagId : tagIds) {
+			collectDescendantsOf(tagId, decendants);
 		}
 		return ImmutableSet.copyOf(decendants);
 	}

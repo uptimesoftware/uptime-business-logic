@@ -3,12 +3,12 @@ package com.uptimesoftware.business.tag;
 import com.google.common.base.Objects;
 import com.uptimesoftware.business.tag.TagIdTreeNode;
 
-public final class ViewIdTreeNodeImpl implements TagIdTreeNode {
+public final class TagIdTreeNodeImpl implements TagIdTreeNode {
 
 	private final Long id;
 	private final Long parentId;
 
-	public ViewIdTreeNodeImpl(Long id, Long parentId) {
+	public TagIdTreeNodeImpl(Long id, Long parentId) {
 		this.id = id;
 		this.parentId = parentId;
 	}
@@ -39,7 +39,7 @@ public final class ViewIdTreeNodeImpl implements TagIdTreeNode {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		ViewIdTreeNodeImpl other = (ViewIdTreeNodeImpl) obj;
+		TagIdTreeNodeImpl other = (TagIdTreeNodeImpl) obj;
 		if (id == null) {
 			if (other.id != null) {
 				return false;

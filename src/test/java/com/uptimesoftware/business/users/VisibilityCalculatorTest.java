@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.uptimesoftware.business.tag.TagIdData;
 import com.uptimesoftware.business.tag.TagIdTreeNode;
-import com.uptimesoftware.business.tag.ViewIdTreeNodeImpl;
+import com.uptimesoftware.business.tag.TagIdTreeNodeImpl;
 
 public class VisibilityCalculatorTest {
 
@@ -25,60 +25,60 @@ public class VisibilityCalculatorTest {
 		} catch (Exception e) {
 			return;
 		}
-		fail("getEntityIds(null) should throw");
+		fail("getelementIds(null) should throw");
 	}
 
 	@Test
-	public void noGroupsOrViews() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoGroups, NoViews);
-		assertArrayEquals(new Long[] {}, entities(calc, user(1)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(2)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(3)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(4)));
+	public void noGroupsOrtags() {
+		VisibilityCalculator calc = new VisibilityCalculator(NoGroups, NoTags);
+		assertArrayEquals(new Long[] {}, elements(calc, user(1)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(3)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(4)));
 	}
 
 	@Test
 	public void groups() {
-		VisibilityCalculator calc = new VisibilityCalculator(SimpleGroups, NoViews);
-		assertArrayEquals(new Long[] { entity(1), entity(2), entity(3) }, entities(calc, user(1)));
-		assertArrayEquals(new Long[] { entity(1), entity(2) }, entities(calc, user(2)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(3)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(4)));
+		VisibilityCalculator calc = new VisibilityCalculator(SimpleGroups, NoTags);
+		assertArrayEquals(new Long[] { element(1), element(2), element(3) }, elements(calc, user(1)));
+		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(3)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(4)));
 	}
 
 	@Test
-	public void views() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoGroups, SimpleViews);
-		assertArrayEquals(new Long[] {}, entities(calc, user(1)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(2)));
-		assertArrayEquals(new Long[] { entity(4) }, entities(calc, user(3)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(4)));
+	public void tags() {
+		VisibilityCalculator calc = new VisibilityCalculator(NoGroups, SimpleTags);
+		assertArrayEquals(new Long[] {}, elements(calc, user(1)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
+		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(3)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(4)));
 	}
 
 	@Test
-	public void groupsAndViews() {
-		VisibilityCalculator calc = new VisibilityCalculator(SimpleGroups, SimpleViews);
-		assertArrayEquals(new Long[] { entity(1), entity(2), entity(3) }, entities(calc, user(1)));
-		assertArrayEquals(new Long[] { entity(1), entity(2) }, entities(calc, user(2)));
-		assertArrayEquals(new Long[] { entity(4) }, entities(calc, user(3)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(4)));
+	public void groupsAndtags() {
+		VisibilityCalculator calc = new VisibilityCalculator(SimpleGroups, SimpleTags);
+		assertArrayEquals(new Long[] { element(1), element(2), element(3) }, elements(calc, user(1)));
+		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
+		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(3)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(4)));
 	}
 
 	@Test
-	public void complexViews() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoGroups, ComplexViews);
-		assertArrayEquals(new Long[] { entity(4) }, entities(calc, user(1)));
-		assertArrayEquals(new Long[] {}, entities(calc, user(2)));
+	public void complextags() {
+		VisibilityCalculator calc = new VisibilityCalculator(NoGroups, ComplexTags);
+		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(1)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
 	}
 
 	@Test
-	public void simpleGroupsAndComplexViews() {
-		VisibilityCalculator calc = new VisibilityCalculator(SimpleGroups, ComplexViews);
-		assertArrayEquals(new Long[] { entity(1), entity(2), entity(3), entity(4) }, entities(calc, user(1)));
-		assertArrayEquals(new Long[] { entity(1), entity(2) }, entities(calc, user(2)));
+	public void simpleGroupsAndComplextags() {
+		VisibilityCalculator calc = new VisibilityCalculator(SimpleGroups, ComplexTags);
+		assertArrayEquals(new Long[] { element(1), element(2), element(3), element(4) }, elements(calc, user(1)));
+		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
 	}
 
-	private static final Long[] entities(VisibilityCalculator calc, Long userId) {
+	private static final Long[] elements(VisibilityCalculator calc, Long userId) {
 		return toArray(calc.getElementIds(user(userId)));
 	}
 
@@ -92,11 +92,11 @@ public class VisibilityCalculatorTest {
 		return id;
 	}
 
-	private static final long view(long id) {
+	private static final long tag(long id) {
 		return id * 10L;
 	}
 
-	private static final long entity(long id) {
+	private static final long element(long id) {
 		return id * 100L;
 	}
 
@@ -113,16 +113,16 @@ public class VisibilityCalculatorTest {
 		@Override
 		public Set<Long> getElementIds(Long userId) {
 			if (userId == user(1)) {
-				return ImmutableSet.of(entity(1), entity(2), entity(3));
+				return ImmutableSet.of(element(1), element(2), element(3));
 			}
 			if (userId == user(2)) {
-				return ImmutableSet.of(entity(1), entity(2));
+				return ImmutableSet.of(element(1), element(2));
 			}
 			return ImmutableSet.of();
 		}
 	};
 
-	private static final TagIdData NoViews = new TagIdData() {
+	private static final TagIdData NoTags = new TagIdData() {
 
 		@Override
 		public Set<Long> findVisibleTagIds(Long userId) {
@@ -140,46 +140,46 @@ public class VisibilityCalculatorTest {
 		}
 	};
 
-	private static final TagIdData SimpleViews = new TagIdData() {
+	private static final TagIdData SimpleTags = new TagIdData() {
 
 		@Override
 		public Set<Long> findVisibleTagIds(Long userId) {
 			if (userId == user(3)) {
-				return ImmutableSet.of(view(1));
+				return ImmutableSet.of(tag(1));
 			}
 			return ImmutableSet.of();
 		}
 
 		@Override
 		public Set<TagIdTreeNode> findAllTagIdTreeNodes() {
-			return ImmutableSet.<TagIdTreeNode> of(new ViewIdTreeNodeImpl(view(1), null));
+			return ImmutableSet.<TagIdTreeNode> of(new TagIdTreeNodeImpl(tag(1), null));
 		}
 
 		@Override
 		public Multimap<Long, Long> findAllElementIdsByTagIds() {
-			return ImmutableMultimap.of(view(1), entity(4));
+			return ImmutableMultimap.of(tag(1), element(4));
 		}
 	};
 
-	private static final TagIdData ComplexViews = new TagIdData() {
+	private static final TagIdData ComplexTags = new TagIdData() {
 
 		@Override
 		public Set<Long> findVisibleTagIds(Long userId) {
 			if (userId == user(1)) {
-				return ImmutableSet.of(view(2));
+				return ImmutableSet.of(tag(2));
 			}
 			return ImmutableSet.of();
 		}
 
 		@Override
 		public Set<TagIdTreeNode> findAllTagIdTreeNodes() {
-			return ImmutableSet.<TagIdTreeNode> of(new ViewIdTreeNodeImpl(view(1), null), new ViewIdTreeNodeImpl(view(2),
-					view(1)), new ViewIdTreeNodeImpl(view(3), view(2)));
+			return ImmutableSet.<TagIdTreeNode> of(new TagIdTreeNodeImpl(tag(1), null), new TagIdTreeNodeImpl(tag(2), tag(1)),
+					new TagIdTreeNodeImpl(tag(3), tag(2)));
 		}
 
 		@Override
 		public Multimap<Long, Long> findAllElementIdsByTagIds() {
-			return ImmutableMultimap.of(view(3), entity(4));
+			return ImmutableMultimap.of(tag(3), element(4));
 		}
 	};
 
