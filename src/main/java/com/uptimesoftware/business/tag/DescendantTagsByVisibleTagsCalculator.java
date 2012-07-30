@@ -21,16 +21,16 @@ public class DescendantTagsByVisibleTagsCalculator {
 	public Set<Long> getDescendantTagIds(Iterable<Long> viewIds) {
 		Set<Long> decendants = Sets.newHashSet();
 		for (Long viewId : viewIds) {
-			collectDecendantsOf(viewId, decendants);
+			collectDescendantsOf(viewId, decendants);
 		}
 		return ImmutableSet.copyOf(decendants);
 	}
 
-	private void collectDecendantsOf(Long parent, Set<Long> result) {
+	private void collectDescendantsOf(Long parent, Set<Long> result) {
 		Collection<Long> children = parentToChildMap.get(parent);
 		result.addAll(children);
 		for (Long child : children) {
-			collectDecendantsOf(child, result);
+			collectDescendantsOf(child, result);
 		}
 	}
 }
