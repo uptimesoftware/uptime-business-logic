@@ -188,6 +188,6 @@ public enum OsType {
 	}
 
 	private static boolean isValid(String field) {
-		return field != null && !field.isEmpty();
+		return !Strings.isNullOrEmpty(field);
 	}
 }
