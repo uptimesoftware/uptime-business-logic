@@ -22,26 +22,35 @@ public class VisibilityCalculator {
 		Set<Long> visibleElementIds = Sets.newHashSet();
 		Set<Long> userGroupIds = userGroupFinder.findUserGroupsByUser(userId);
 		visibleElementIds.addAll(userGroupFinder.findElementsByUserGroups(userGroupIds));
-		visibleElementIds.addAll(getElementIdsFromVisibleTags(userId, userGroupIds));
+		Set<Long> tagIds = getVisibleTagIds(userId, userGroupIds);
+		visibleElementIds.addAll(tagFinder.findElementsByTags(tagIds));
 		return visibleElementIds;
 	}
 
-	private Set<Long> getElementIdsFromVisibleTags(Long userId, Set<Long> userGroupIds) {
-		Set<Long> visibleTagIds;
-		if (permissionChecker.hasAdministratorPermission(userId)) {
-			visibleTagIds = tagFinder.findAllTags();
-		} else {
-			DescendantTagsByVisibleTagsCalculator calc = new DescendantTagsByVisibleTagsCalculator(
-					tagFinder.findAllTagIdTreeNodes());
-
-			Set<Long> directlyVisibleTagIds = Sets.newHashSet();
-			directlyVisibleTagIds.addAll(tagFinder.findTagsByUser(userId));
-			directlyVisibleTagIds.addAll(tagFinder.findTagsByUserGroups(userGroupIds));
-			
-			visibleTagIds = Sets.newHashSet();
-			visibleTagIds.addAll(calc.getDescendantTagIds(directlyVisibleTagIds));
-			visibleTagIds.addAll(directlyVisibleTagIds);
+	public Set<Long> getTagIds(Long userId) {
+		if (userId == null) {
+			throw new IllegalArgumentException("Cannot get tag ids for null user id.");
 		}
-		return tagFinder.findElementsByTags(visibleTagIds);
+		return getVisibleTagIds(userId, null);
+	}
+
+	private Set<Long> getVisibleTagIds(Long userId, Set<Long> userGroupIds) {
+		if (permissionChecker.hasAdministratorPermission(userId)) {
+			return tagFinder.findAllTags();
+		}
+		if (userGroupIds == null) {
+			userGroupIds = userGroupFinder.findUserGroupsByUser(userId);
+		}
+
+		DescendantTagsByVisibleTagsCalculator calc = new DescendantTagsByVisibleTagsCalculator(tagFinder.findAllTagIdTreeNodes());
+
+		Set<Long> directlyVisibleTagIds = Sets.newHashSet();
+		directlyVisibleTagIds.addAll(tagFinder.findTagsByUser(userId));
+		directlyVisibleTagIds.addAll(tagFinder.findTagsByUserGroups(userGroupIds));
+
+		Set<Long> visibleTagIds = Sets.newHashSet();
+		visibleTagIds.addAll(calc.getDescendantTagIds(directlyVisibleTagIds));
+		visibleTagIds.addAll(directlyVisibleTagIds);
+		return visibleTagIds;
 	}
 }
