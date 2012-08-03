@@ -1,4 +1,4 @@
-package com.uptimesoftware.business.tag;
+package com.uptimesoftware.business.visibility;
 
 public interface TagIdTreeNode {
 	Long getId();

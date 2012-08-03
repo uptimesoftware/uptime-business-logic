@@ -11,9 +11,11 @@ import org.junit.Test;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
-import com.uptimesoftware.business.tag.TagIdData;
-import com.uptimesoftware.business.tag.TagIdTreeNode;
-import com.uptimesoftware.business.tag.TagIdTreeNodeImpl;
+import com.uptimesoftware.business.visibility.TagIdData;
+import com.uptimesoftware.business.visibility.TagIdTreeNode;
+import com.uptimesoftware.business.visibility.TagIdTreeNodeImpl;
+import com.uptimesoftware.business.visibility.UserGroupElementVisibilityData;
+import com.uptimesoftware.business.visibility.VisibilityCalculator;
 
 public class VisibilityCalculatorTest {
 

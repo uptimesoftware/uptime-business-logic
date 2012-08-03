@@ -1,4 +1,4 @@
-package com.uptimesoftware.business.tag;
+package com.uptimesoftware.business.visibility;
 
 import java.util.Collection;
 import java.util.Set;
@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-public class DescendantTagsByVisibleTagsCalculator {
+class DescendantTagsByVisibleTagsCalculator {
 
 	private final Multimap<Long, Long> parentToChildMap = HashMultimap.create();
 

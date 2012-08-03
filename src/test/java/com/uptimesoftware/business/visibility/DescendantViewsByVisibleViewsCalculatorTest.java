@@ -1,4 +1,4 @@
-package com.uptimesoftware.business.tag;
+package com.uptimesoftware.business.visibility;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Sets;
-import com.uptimesoftware.business.tag.DescendantTagsByVisibleTagsCalculator;
-import com.uptimesoftware.business.tag.TagIdTreeNode;
+import com.uptimesoftware.business.visibility.DescendantTagsByVisibleTagsCalculator;
+import com.uptimesoftware.business.visibility.TagIdTreeNode;
 
 public class DescendantViewsByVisibleViewsCalculatorTest {
 

@@ -1,4 +1,4 @@
-package com.uptimesoftware.business.users;
+package com.uptimesoftware.business.visibility;
 
 import java.util.Set;
 

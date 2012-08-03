@@ -1,7 +1,7 @@
-package com.uptimesoftware.business.tag;
+package com.uptimesoftware.business.visibility;
 
 import com.google.common.base.Objects;
-import com.uptimesoftware.business.tag.TagIdTreeNode;
+import com.uptimesoftware.business.visibility.TagIdTreeNode;
 
 public final class TagIdTreeNodeImpl implements TagIdTreeNode {
 

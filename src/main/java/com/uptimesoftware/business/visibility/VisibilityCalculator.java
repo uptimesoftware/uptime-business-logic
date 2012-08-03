@@ -1,11 +1,9 @@
-package com.uptimesoftware.business.users;
+package com.uptimesoftware.business.visibility;
 
 import java.util.Set;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-import com.uptimesoftware.business.tag.DescendantTagsByVisibleTagsCalculator;
-import com.uptimesoftware.business.tag.TagIdData;
 
 public class VisibilityCalculator {
 	private final UserGroupElementVisibilityData userGroupElementVisibility;
