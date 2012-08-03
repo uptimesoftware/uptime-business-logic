@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.uptimesoftware.common</groupId>
 	<artifactId>uptime-business-logic</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<name>up.time Business Logic Library</name>
 	<parent>
 		<groupId>com.uptimesoftware</groupId>
@@ -27,8 +27,8 @@
 		</plugins>
 	</build>
 	<scm>
-		<url>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/trunk</url>
-		<developerConnection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/trunk</developerConnection>
+		<url>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/tags/uptime-business-logic-1.0.2</url>
+		<developerConnection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/tags/uptime-business-logic-1.0.2</developerConnection>
 	</scm>
 	<dependencies>
 		<dependency>
