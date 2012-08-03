@@ -20,27 +20,28 @@ public class VisibilityCalculator {
 			throw new IllegalArgumentException("Cannot get element ids for null user id.");
 		}
 		Set<Long> visibleElementIds = Sets.newHashSet();
-		visibleElementIds.addAll(getElementIdsFromUserGroups(userId));
-		visibleElementIds.addAll(getElementIdsFromVisibleTags(userId));
+		Set<Long> userGroupIds = userGroupFinder.findUserGroupsByUser(userId);
+		visibleElementIds.addAll(userGroupFinder.findElementsByUserGroups(userGroupIds));
+		visibleElementIds.addAll(getElementIdsFromVisibleTags(userId, userGroupIds));
 		return visibleElementIds;
 	}
 
-	private Set<Long> getElementIdsFromUserGroups(Long userId) {
-		Set<Long> userGroupIds = userGroupFinder.findUserGroupIds(userId);
-		return userGroupFinder.findElementIds(userGroupIds);
-	}
-
-	private Set<Long> getElementIdsFromVisibleTags(Long userId) {
+	private Set<Long> getElementIdsFromVisibleTags(Long userId, Set<Long> userGroupIds) {
 		Set<Long> visibleTagIds;
 		if (permissionChecker.hasAdministratorPermission(userId)) {
-			visibleTagIds = tagFinder.findAllTagIds();
+			visibleTagIds = tagFinder.findAllTags();
 		} else {
 			DescendantTagsByVisibleTagsCalculator calc = new DescendantTagsByVisibleTagsCalculator(
 					tagFinder.findAllTagIdTreeNodes());
-			Set<Long> directlyVisibleTagIds = tagFinder.findTagIds(userId);
-			visibleTagIds = Sets.newHashSet(calc.getDescendantTagIds(directlyVisibleTagIds));
+
+			Set<Long> directlyVisibleTagIds = Sets.newHashSet();
+			directlyVisibleTagIds.addAll(tagFinder.findTagsByUser(userId));
+			directlyVisibleTagIds.addAll(tagFinder.findTagsByUserGroups(userGroupIds));
+			
+			visibleTagIds = Sets.newHashSet();
+			visibleTagIds.addAll(calc.getDescendantTagIds(directlyVisibleTagIds));
 			visibleTagIds.addAll(directlyVisibleTagIds);
 		}
-		return tagFinder.findElementIds(visibleTagIds);
+		return tagFinder.findElementsByTags(visibleTagIds);
 	}
 }

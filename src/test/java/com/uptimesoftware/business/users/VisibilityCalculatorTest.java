@@ -134,12 +134,12 @@ public class VisibilityCalculatorTest {
 	private static final UserGroupFinder NoGroups = new UserGroupFinder() {
 
 		@Override
-		public Set<Long> findUserGroupIds(Long userId) {
+		public Set<Long> findUserGroupsByUser(Long userId) {
 			return ImmutableSet.of();
 		}
 
 		@Override
-		public Set<Long> findElementIds(Set<Long> userGroupIds) {
+		public Set<Long> findElementsByUserGroups(Set<Long> userGroupIds) {
 			return ImmutableSet.of();
 		}
 	};
@@ -147,7 +147,7 @@ public class VisibilityCalculatorTest {
 	private static final UserGroupFinder SimpleGroups = new UserGroupFinder() {
 
 		@Override
-		public Set<Long> findUserGroupIds(Long userId) {
+		public Set<Long> findUserGroupsByUser(Long userId) {
 			if (userId == user(1)) {
 				return ImmutableSet.of(userGroup(1), userGroup(2));
 			}
@@ -158,7 +158,7 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<Long> findElementIds(Set<Long> userGroupIds) {
+		public Set<Long> findElementsByUserGroups(Set<Long> userGroupIds) {
 			Set<Long> elementIds = Sets.newHashSet();
 			if (userGroupIds.contains(userGroup(1))) {
 				elementIds.add(element(1));
@@ -174,12 +174,17 @@ public class VisibilityCalculatorTest {
 	private static final TagFinder NoTags = new TagFinder() {
 
 		@Override
-		public Set<Long> findTagIds(Long userId) {
+		public Set<Long> findTagsByUser(Long userId) {
 			return ImmutableSet.of();
 		}
 
 		@Override
-		public Set<Long> findAllTagIds() {
+		public Set<Long> findTagsByUserGroups(Set<Long> userGroups) {
+			return ImmutableSet.of();
+		}
+
+		@Override
+		public Set<Long> findAllTags() {
 			return ImmutableSet.of();
 		}
 
@@ -189,7 +194,7 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<Long> findElementIds(Set<Long> tagIds) {
+		public Set<Long> findElementsByTags(Set<Long> tagIds) {
 			return ImmutableSet.of();
 		}
 	};
@@ -197,7 +202,7 @@ public class VisibilityCalculatorTest {
 	private static final TagFinder SimpleTags = new TagFinder() {
 
 		@Override
-		public Set<Long> findTagIds(Long userId) {
+		public Set<Long> findTagsByUser(Long userId) {
 			if (userId == user(3)) {
 				return ImmutableSet.of(tag(1));
 			}
@@ -205,7 +210,12 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<Long> findAllTagIds() {
+		public Set<Long> findTagsByUserGroups(Set<Long> userGroups) {
+			return ImmutableSet.of();
+		}
+
+		@Override
+		public Set<Long> findAllTags() {
 			return ImmutableSet.of(tag(1));
 		}
 
@@ -215,7 +225,7 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<Long> findElementIds(Set<Long> tagIds) {
+		public Set<Long> findElementsByTags(Set<Long> tagIds) {
 			Set<Long> elementIds = Sets.newHashSet();
 			if (tagIds.contains(tag(1))) {
 				elementIds.add(element(4));
@@ -227,15 +237,20 @@ public class VisibilityCalculatorTest {
 	private static final TagFinder ComplexTags = new TagFinder() {
 
 		@Override
-		public Set<Long> findTagIds(Long userId) {
+		public Set<Long> findTagsByUser(Long userId) {
 			if (userId == user(1)) {
 				return ImmutableSet.of(tag(2));
 			}
 			return ImmutableSet.of();
 		}
+		
+		@Override
+		public Set<Long> findTagsByUserGroups(Set<Long> userGroups) {
+			return ImmutableSet.of();
+		}
 
 		@Override
-		public Set<Long> findAllTagIds() {
+		public Set<Long> findAllTags() {
 			return ImmutableSet.of(tag(1), tag(2), tag(3), tag(4));
 		}
 
@@ -246,7 +261,7 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<Long> findElementIds(Set<Long> tagIds) {
+		public Set<Long> findElementsByTags(Set<Long> tagIds) {
 			Set<Long> elementIds = Sets.newHashSet();
 			if (tagIds.contains(tag(3))) {
 				elementIds.add(element(4));

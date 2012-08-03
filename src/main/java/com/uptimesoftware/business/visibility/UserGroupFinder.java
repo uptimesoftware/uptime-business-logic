@@ -4,7 +4,13 @@ import java.util.Set;
 
 public interface UserGroupFinder {
 
-	Set<Long> findUserGroupIds(Long userId);
+	/**
+	 * Find all the user group ids that a user belongs to.
+	 */
+	Set<Long> findUserGroupsByUser(Long userId);
 	
-	Set<Long> findElementIds(Set<Long> userGroupIds);
+	/**
+	 * Find all the element ids that the specified user groups can see.
+	 */
+	Set<Long> findElementsByUserGroups(Set<Long> userGroupIds);
 }
