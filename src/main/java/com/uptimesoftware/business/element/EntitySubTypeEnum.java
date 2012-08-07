@@ -1,7 +1,7 @@
 package com.uptimesoftware.business.element;
 
 
-public enum SystemSubType {
+public enum EntitySubTypeEnum {
 	Agent(1),
 	NetworkDevice(2),
 	NovellNrm(4),
@@ -24,7 +24,7 @@ public enum SystemSubType {
 
 	public final long id;
 
-	private SystemSubType(long id) {
+	private EntitySubTypeEnum(long id) {
 		this.id = id;
 	}
 
@@ -33,8 +33,8 @@ public enum SystemSubType {
 		return String.valueOf(id);
 	}
 
-	public static SystemSubType getType(long typeId) {
-		for (SystemSubType subType : SystemSubType.values()) {
+	public static EntitySubTypeEnum getType(long typeId) {
+		for (EntitySubTypeEnum subType : EntitySubTypeEnum.values()) {
 			if (subType.id == typeId) {
 				return subType;
 			}
@@ -43,6 +43,6 @@ public enum SystemSubType {
 	}
 
 	public boolean isVmwareGroup() {
-		return SystemSubTypes.isVmwareGroup(this);
+		return EntitySubTypeEnums.isVmwareGroup(this);
 	}
 }

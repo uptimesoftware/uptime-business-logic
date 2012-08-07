@@ -33,7 +33,7 @@ public enum ElementSubTypeEnum {
 		return defaultName;
 	}
 
-	public static ElementSubTypeEnum fromElementConfiguration(SystemType systemType, SystemSubType systemSubType, String arch,
+	public static ElementSubTypeEnum fromElementConfiguration(EntityTypeEnum systemType, EntitySubTypeEnum systemSubType, String arch,
 			String osver) {
 		if (ElementSubTypeEnum.isNetworkType(systemType)) {
 			return Switch;
@@ -44,12 +44,12 @@ public enum ElementSubTypeEnum {
 		return ElementSubTypeEnum.getServerSubType(systemSubType, arch, osver);
 	}
 
-	static private boolean isNetworkType(SystemType systemType) {
-		return SystemType.Node == systemType;
+	static private boolean isNetworkType(EntityTypeEnum systemType) {
+		return EntityTypeEnum.Node == systemType;
 	}
 
-	static private boolean isApplicationType(SystemType systemType) {
-		return SystemType.Application == systemType;
+	static private boolean isApplicationType(EntityTypeEnum systemType) {
+		return EntityTypeEnum.Application == systemType;
 	}
 
 	static private ElementSubTypeEnum getServerSubTypeFromOs(String arch, String osver) {
@@ -85,7 +85,7 @@ public enum ElementSubTypeEnum {
 		return ElementSubTypeEnum.toServerSubType(osType);
 	}
 
-	static private ElementSubTypeEnum getServerSubType(SystemSubType systemSubType, String arch, String osver) {
+	static private ElementSubTypeEnum getServerSubType(EntitySubTypeEnum systemSubType, String arch, String osver) {
 		switch (systemSubType) {
 		case Agent:
 		case WmiAgentless:
