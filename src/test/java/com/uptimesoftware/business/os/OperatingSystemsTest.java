@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.uptimesoftware.business.element.EntitySubTypeEnum;
+
 public class OperatingSystemsTest {
 
 	@Test
@@ -166,6 +168,30 @@ public class OperatingSystemsTest {
 		assertEquals("IBM Power Systems", osinfo.getOsType());
 		assertEquals("AIX 5.3", osinfo.getOsVersion());
 		assertEquals("Power", osinfo.getArchName());
+	}
+
+	@Test
+	public void testGetOsWithVM() {
+		OsInfo osInfo = OperatingSystems.getOsInfo(EntitySubTypeEnum.VirtualMachine, "Red Hat Enterprise Linux 5 (64-bit)",
+				"VirtualMachine");
+		assertEquals("Linux", osInfo.getOsType());
+		assertEquals("Red Hat Enterprise Linux 5", osInfo.getOsVersion());
+		assertEquals("x86_64", osInfo.getArchName());
+
+		osInfo = OperatingSystems.getOsInfo(EntitySubTypeEnum.VirtualMachine,
+				"Linux rh-lorne 2.6.32-131.0.15.el6.x86_64 #1 SMP Tue May 10 15:42:40 EDT 2011 x86_64 x86_64 x86_64 GNU/Linux",
+				"RedHat 6.1(Santiago 2.6.32-131.0.15.el6.x86_64 x86_64)");
+		assertEquals("Linux", osInfo.getOsType());
+		assertEquals("Red Hat 6.1", osInfo.getOsVersion());
+		assertEquals("x86_64", osInfo.getArchName());
+	}
+
+	@Test
+	public void testGetOsWithNetworkDevice() {
+		OsInfo osInfo = OperatingSystems.getOsInfo(EntitySubTypeEnum.NetworkDevice, "Neyland 24T", null);
+		assertEquals("Neyland 24T", osInfo.getOsType());
+		assertEquals("", osInfo.getOsVersion());
+		assertEquals("Unknown", osInfo.getArchName());
 	}
 
 }

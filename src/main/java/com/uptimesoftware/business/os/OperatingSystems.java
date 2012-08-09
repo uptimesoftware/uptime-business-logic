@@ -1,5 +1,6 @@
 package com.uptimesoftware.business.os;
 
+import com.uptimesoftware.business.element.EntitySubTypeEnum;
 
 public class OperatingSystems {
 
@@ -25,6 +26,41 @@ public class OperatingSystems {
 
 	public static boolean isWindowsVersionNumber(String versionNumber) {
 		return WindowsOsParser.recognizedVersionNumbers().contains(versionNumber);
+	}
+
+	public static OsInfo getOsInfo(EntitySubTypeEnum entitySubType, String arch, String osver) {
+		if (OsVersions.isUptimeDefined(osver)) {
+			switch (OsVersions.getUptimeDefined(osver)) {
+			case VirtualMachine:
+				return getVmwareGuestOsInfo(arch);
+
+			case VirtualCenter:
+				return getVirtualCenterOsInfo(arch);
+
+			default:
+				break;
+			}
+		}
+		switch (entitySubType) {
+		case NetworkDevice:
+			return new OsInfo(arch, "", Architecture.Unknown);
+
+		case LparHmc:
+			return getLparHmcServerOsInfo(osver);
+
+		case LparVio:
+			return getLparVioServerOsInfo(arch, osver);
+
+		case NovellNrm:
+			return getNovellNrmOsInfo(arch);
+
+		case VirtualNode:
+			return UNKNOWN;
+
+		default:
+			break;
+		}
+		return getAgentOrWmiOsInfo(arch, osver);
 	}
 
 	public static OsInfo getVmwareGuestOsInfo(String arch) {
