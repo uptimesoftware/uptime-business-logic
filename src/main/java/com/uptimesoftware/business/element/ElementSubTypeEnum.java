@@ -11,8 +11,8 @@ public enum ElementSubTypeEnum {
 	Windows(ElementTypeEnum.Server, "Microsoft Windows"),
 	EsxServer(ElementTypeEnum.Server, "VMware ESX Server"),
 	IbmPowerSystems(ElementTypeEnum.Server, "IBM Power Systems"),
-	vCenterServer(ElementTypeEnum.Server, "VMware vCenter Server"),
-	vCenterHostSystem(ElementTypeEnum.Server, "VMware vSphere Server"),
+	VcenterServer(ElementTypeEnum.Server, "VMware vCenter Server"),
+	VcenterHostSystem(ElementTypeEnum.Server, "VMware vSphere Server"),
 	Unknown(ElementTypeEnum.Server, "Unknown"),
 	Switch(ElementTypeEnum.NetworkDevice, "Switch"),
 	Application(ElementTypeEnum.Application, "Application");
@@ -104,10 +104,10 @@ public enum ElementSubTypeEnum {
 			return IbmPowerSystems;
 
 		case VirtualCenter:
-			return vCenterServer;
+			return VcenterServer;
 
 		case HostSystem:
-			return vCenterHostSystem;
+			return VcenterHostSystem;
 
 		case VmwareEsx:
 			return EsxServer;
