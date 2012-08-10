@@ -74,13 +74,13 @@ public class ElementSubTypeEnumTest {
 
 	@Test
 	public void hostSystem() {
-		assertEquals(ElementSubTypeEnum.vCenterHostSystem, ElementSubTypeEnum.fromElementConfiguration(EntityTypeEnum.VmwareObject,
+		assertEquals(ElementSubTypeEnum.VcenterHostSystem, ElementSubTypeEnum.fromElementConfiguration(EntityTypeEnum.VmwareObject,
 				EntitySubTypeEnum.HostSystem, "VMware ESXi 4.1.0 build-721871", "VMware ESXi 4.1.0 build-721871"));
 	}
 
 	@Test
 	public void vCenter() {
-		assertEquals(ElementSubTypeEnum.vCenterServer, ElementSubTypeEnum.fromElementConfiguration(EntityTypeEnum.VmwareObject,
+		assertEquals(ElementSubTypeEnum.VcenterServer, ElementSubTypeEnum.fromElementConfiguration(EntityTypeEnum.VmwareObject,
 				EntitySubTypeEnum.VirtualCenter, "VMware ESXi 4.1.0 build-721871", "VMware ESXi 4.1.0 build-721871"));
 	}
 
