@@ -4,7 +4,8 @@ import com.uptimesoftware.business.element.EntitySubTypeEnum;
 
 public class OperatingSystems {
 
-	private static final OsInfo UNKNOWN = new OsInfo("Unknown", "", Architecture.Unknown);
+	public static final OsInfo UNKNOWN = new OsInfo("Unknown", "", Architecture.Unknown);
+
 	private static final OsParser windowsParser = new WindowsOsParser();
 	private static final OsParser linuxParser = new LinuxOsParser();
 	private static final OsParser solarisParser = new SolarisOsParser();
