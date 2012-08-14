@@ -1,6 +1,6 @@
 package com.uptimesoftware.business.os;
 
-public class Tru64OsParser implements OsParser {
+class Tru64OsParser implements OsParser {
 
 	@Override
 	public OsInfo parse(String arch, String osver) {

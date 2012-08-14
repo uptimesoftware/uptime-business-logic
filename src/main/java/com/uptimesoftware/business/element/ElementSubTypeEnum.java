@@ -63,7 +63,7 @@ public enum ElementSubTypeEnum {
 	}
 
 	static private ElementSubTypeEnum getServerSubTypeFromOs(String arch, String osver) {
-		OsType osType = OsType.detectAgentOrWmi(arch, osver);
+		OsType osType = OsType.fromArchAndOsver(arch, osver);
 		return toServerSubType(osType);
 	}
 
@@ -83,16 +83,14 @@ public enum ElementSubTypeEnum {
 
 		case HPUX:
 			return Hpux;
+			
+		case Novell:
+			return Netware;
 
 		default:
 			break;
 		}
 		return Unknown;
-	}
-
-	static private ElementSubTypeEnum getServerSubTypeFromVmOs(String arch) {
-		OsType osType = OsType.detectVirtualMachineGuest(arch);
-		return ElementSubTypeEnum.toServerSubType(osType);
 	}
 
 	static private ElementSubTypeEnum getServerSubType(EntitySubTypeEnum systemSubType, String arch, String osver) {
@@ -101,10 +99,8 @@ public enum ElementSubTypeEnum {
 		case WmiAgentless:
 		case SnmpV2:
 		case SnmpV3:
-			return ElementSubTypeEnum.getServerSubTypeFromOs(arch, osver);
-
 		case VirtualMachine:
-			return ElementSubTypeEnum.getServerSubTypeFromVmOs(arch);
+			return ElementSubTypeEnum.getServerSubTypeFromOs(arch, osver);
 
 		case NovellNrm:
 			return Netware;

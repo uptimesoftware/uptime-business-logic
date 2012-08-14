@@ -1,5 +1,6 @@
 package com.uptimesoftware.business.os;
 
+import com.google.common.base.Strings;
 import com.uptimesoftware.business.element.EntitySubTypeEnum;
 
 public class OperatingSystems {
@@ -14,14 +15,14 @@ public class OperatingSystems {
 	private static final OsParser hpuxParser = new HpUxOsParser();
 	private static final OsParser vmwareGuestParser = new VmwareGuestOsParser();
 
-	public static String getFullOsName(String arch, String osver) {
-		if (isLparHmcServer(osver)) {
+	public static String getFullOsName(EntitySubTypeEnum entitySubType, String arch, String osver) {
+		if (entitySubType == EntitySubTypeEnum.LparHmc) {
 			return osver;
 		}
-		return getAgentOrWmiOsInfo(arch, osver).getOsFull();
+		return getOsInfo(entitySubType, arch, osver).getOsFull();
 	}
 
-	public static String getWindowsOsNameFromVersionNumber(String windowsVersionNumber) {
+	public static String getFullOsNameFromWindowsVersionNumber(String windowsVersionNumber) {
 		return windowsParser.parse(null, windowsVersionNumber).getOsFull();
 	}
 
@@ -42,6 +43,9 @@ public class OperatingSystems {
 				break;
 			}
 		}
+		if (entitySubType == null) {
+			return UNKNOWN;
+		}
 		switch (entitySubType) {
 		case NetworkDevice:
 			return new OsInfo(arch, "", Architecture.Unknown);
@@ -61,22 +65,22 @@ public class OperatingSystems {
 		default:
 			break;
 		}
-		return getAgentOrWmiOsInfo(arch, osver);
+		return getOsInfoFromArchAndOsver(arch, osver);
 	}
 
-	public static OsInfo getVmwareGuestOsInfo(String arch) {
-		if (arch == null || arch.isEmpty()) {
+	private static OsInfo getVmwareGuestOsInfo(String arch) {
+		if (Strings.isNullOrEmpty(arch)) {
 			return UNKNOWN;
 		}
 		return vmwareGuestParser.parse(arch, null);
 	}
 
-	public static OsInfo getAgentOrWmiOsInfo(String arch, String osver) {
-		if (arch == null || arch.isEmpty()) {
+	private static OsInfo getOsInfoFromArchAndOsver(String arch, String osver) {
+		if (Strings.isNullOrEmpty(arch)) {
 			return UNKNOWN;
 		}
 
-		OsType osType = OsType.detectAgentOrWmi(arch, osver);
+		OsType osType = OsType.fromArchAndOsver(arch, osver);
 		if (osType == OsType.Windows) {
 			return windowsParser.parse(arch, osver);
 		}
@@ -103,19 +107,19 @@ public class OperatingSystems {
 		return new OsInfo(removeUnderscores(arch), "", Architecture.getArchitecture(arch));
 	}
 
-	public static OsInfo getVirtualCenterOsInfo(String virtualCenterSettingsApiVersion) {
+	private static OsInfo getVirtualCenterOsInfo(String virtualCenterSettingsApiVersion) {
 		return new OsInfo("vCenter", "VMware " + virtualCenterSettingsApiVersion);
 	}
 
-	public static OsInfo getNovellNrmOsInfo(String arch) {
+	private static OsInfo getNovellNrmOsInfo(String arch) {
 		return new OsInfo("Novell", arch, Architecture.x86);
 	}
 
-	public static OsInfo getLparHmcServerOsInfo(String osver) {
+	private static OsInfo getLparHmcServerOsInfo(String osver) {
 		return new OsInfo("IBM Power Systems", osver, Architecture.Power);
 	}
 
-	public static OsInfo getLparVioServerOsInfo(String arch, String osver) {
+	private static OsInfo getLparVioServerOsInfo(String arch, String osver) {
 		String firstWord = getFirstWord(arch);
 		return new OsInfo("IBM Power Systems", firstWord + " " + osver, Architecture.Power);
 	}
@@ -134,10 +138,6 @@ public class OperatingSystems {
 			return string.replace("_", " ");
 		}
 		return "";
-	}
-
-	private static boolean isLparHmcServer(String osver) {
-		return osver != null && osver.startsWith("HMC");
 	}
 
 }

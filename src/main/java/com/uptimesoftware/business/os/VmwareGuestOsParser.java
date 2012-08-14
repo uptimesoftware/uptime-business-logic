@@ -1,6 +1,6 @@
 package com.uptimesoftware.business.os;
 
-public class VmwareGuestOsParser implements OsParser {
+class VmwareGuestOsParser implements OsParser {
 
 	private static final String WindowsPrefix = "Microsoft Windows ";
 	private static final String SolarisPrefix = "Sun Solaris ";
@@ -19,7 +19,7 @@ public class VmwareGuestOsParser implements OsParser {
 	}
 
 	private String getOsType(String arch) {
-		OsType vmOsType = OsType.detectVirtualMachineGuest(arch);
+		OsType vmOsType = OsType.fromVirtualMachineArchitecture(arch);
 		String osType = vmOsType.name();
 		if (vmOsType == OsType.Unknown) {
 			String[] words = arch.split("\\s+", 2);

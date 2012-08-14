@@ -1,6 +1,6 @@
 package com.uptimesoftware.business.os;
 
-public class HpUxOsParser implements OsParser {
+class HpUxOsParser implements OsParser {
 
 	@Override
 	public OsInfo parse(String arch, String osver) {

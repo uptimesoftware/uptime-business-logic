@@ -1,114 +1,97 @@
 package com.uptimesoftware.business.os;
 
 import com.google.common.base.Strings;
+import com.uptimesoftware.business.os.OsVersions.UptimeDefinedOsVersion;
 
 public enum OsType {
 
 	Windows("Windows") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return contains(architecture, "Windows");
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String firstWord, String osver) {
-			if (firstWord.contains("windows") || (isValid(osver) && osver.toLowerCase().contains("windows"))) {
-				return true;
-			}
-			return false;
+		boolean matchesArchAndOsver(String arch, String osver) {
+			return firstWordContains(arch, "windows") || Strings.nullToEmpty(osver).toLowerCase().contains("windows");
 		}
 	},
 	Linux("Linux") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return architecture != null
 					&& (architecture.contains("Linux") || architecture.contains("Asianux") || architecture.contains("Turbolinux")
 							|| architecture.contains("CentOS") || architecture.contains("Open Enterprise Server"));
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String firstWord, String osver) {
-			if (firstWord.contains("linux")) {
-				return true;
-			}
-			return false;
+		boolean matchesArchAndOsver(String arch, String osver) {
+			return firstWordContains(arch, "linux");
 		}
 	},
 	Solaris("Solaris") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return contains(architecture, "Solaris");
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String firstWord, String osver) {
-			if (firstWord.contains("sunos")) {
-				return true;
-			}
-			return false;
+		boolean matchesArchAndOsver(String arch, String osver) {
+			return firstWordContains(arch, "sunos");
 		}
 	},
 	Novell("Netware") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return contains(architecture, "NetWare");
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String architecture, String osver) {
+		boolean matchesArchAndOsver(String arch, String osver) {
 			return false;
 		}
 	},
 	Tru64("Tru64") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return false;
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String firstWord, String osver) {
-			if (firstWord.contains("osf")) {
-				return true;
-			}
-			return false;
+		boolean matchesArchAndOsver(String arch, String osver) {
+			return firstWordContains(arch, "osf");
 		}
 	},
 	AIX("AIX") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return false;
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String firstWord, String osver) {
-			if (firstWord.contains("aix")) {
-				return true;
-			}
-			return false;
+		boolean matchesArchAndOsver(String arch, String osver) {
+			return firstWordContains(arch, "aix");
 		}
 	},
 	HPUX("HP-UX") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return false;
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String firstWord, String osver) {
-			if (firstWord.contains("hp-ux")) {
-				return true;
-			}
-			return false;
+		boolean matchesArchAndOsver(String arch, String osver) {
+			return firstWordContains(arch, "hp-ux");
 		}
 	},
 	Unknown("Unknown") {
 		@Override
-		public boolean matchesVirtualMachineGuest(String architecture) {
+		public boolean matchesVirtualMachineArchitecture(String architecture) {
 			return true;
 		}
 
 		@Override
-		boolean checkAgentOrWmi(String architecture, String osver) {
+		boolean matchesArchAndOsver(String arch, String osver) {
 			return true;
 		}
 	};
@@ -119,45 +102,36 @@ public enum OsType {
 		this.name = name;
 	}
 
-	public abstract boolean matchesVirtualMachineGuest(String architecture);
+	public abstract boolean matchesVirtualMachineArchitecture(String architecture);
 
-	abstract boolean checkAgentOrWmi(String firstWordOfArch, String osver);
-
-	public boolean matchesAgentOrWmi(String arch, String osver) {
-		if (!isValid(arch)) {
-			return false;
-		}
-		String firstWord = getFirstWord(arch);
-		if (checkAgentOrWmi(firstWord, osver)) {
-			return true;
-		}
-		return false;
-	}
+	abstract boolean matchesArchAndOsver(String arch, String osver);
 
 	@Override
 	public String toString() {
 		return name;
 	}
 
-	public static OsType detectVirtualMachineGuest(String architecture) {
-		if (!isValid(architecture)) {
+	public static OsType fromArchAndOsver(String arch, String osver) {
+		if (OsVersions.getUptimeDefined(osver) == UptimeDefinedOsVersion.VirtualMachine) {
+			return fromVirtualMachineArchitecture(arch);
+		}
+		if (Strings.isNullOrEmpty(arch)) {
 			return Unknown;
 		}
 		for (OsType osType : values()) {
-			if (osType.matchesVirtualMachineGuest(architecture)) {
+			if (osType.matchesArchAndOsver(arch, osver)) {
 				return osType;
 			}
 		}
 		return Unknown;
 	}
 
-	public static OsType detectAgentOrWmi(String arch, String osver) {
-		if (!isValid(arch)) {
+	static OsType fromVirtualMachineArchitecture(String architecture) {
+		if (Strings.isNullOrEmpty(architecture)) {
 			return Unknown;
 		}
 		for (OsType osType : values()) {
-			String firstWord = getFirstWord(arch);
-			if (osType.checkAgentOrWmi(firstWord, osver)) {
+			if (osType.matchesVirtualMachineArchitecture(architecture)) {
 				return osType;
 			}
 		}
@@ -165,29 +139,23 @@ public enum OsType {
 	}
 
 	private static boolean contains(String str, String searchStr) {
-		if (searchStr == null) {
+		if (Strings.isNullOrEmpty(str)) {
 			return false;
 		}
-		return Strings.nullToEmpty(str).indexOf(searchStr) > -1;
+		return str.indexOf(searchStr) > -1;
 	}
 
-	private static String getFirstWord(String arch) {
-		String systemType = arch;
-		int firstSpace = systemType.indexOf(' ');
-		if (firstSpace != -1) {
-			systemType = arch.substring(0, firstSpace);
+	private static boolean firstWordContains(String str, String searchStr) {
+		if (Strings.isNullOrEmpty(str)) {
+			return false;
 		}
-		return removeUnderscores(systemType).toLowerCase();
-	}
-
-	private static String removeUnderscores(String string) {
-		if (string != null) {
-			return string.replace("_", " ");
+		String firstWord;
+		int firstSpace = str.indexOf(' ');
+		if (firstSpace == -1) {
+			firstWord = str;
+		} else {
+			firstWord = str.substring(0, firstSpace);
 		}
-		return "";
-	}
-
-	private static boolean isValid(String field) {
-		return !Strings.isNullOrEmpty(field);
+		return contains(firstWord.replace('_', ' ').toLowerCase(), searchStr);
 	}
 }

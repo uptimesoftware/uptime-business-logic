@@ -1,6 +1,6 @@
 package com.uptimesoftware.business.os;
 
-public class UnknownLinuxOsInfo extends OsInfo {
+class UnknownLinuxOsInfo extends OsInfo {
 
 	UnknownLinuxOsInfo(String osType, String osVersion, Architecture arch) {
 		super(osType, osVersion, arch);

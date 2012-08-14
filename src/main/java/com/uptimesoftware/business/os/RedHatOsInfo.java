@@ -1,6 +1,6 @@
 package com.uptimesoftware.business.os;
 
-public class RedHatOsInfo extends OsInfo {
+class RedHatOsInfo extends OsInfo {
 
 	RedHatOsInfo(String osType, String osVersion, Architecture arch) {
 		super(osType, osVersion, arch);

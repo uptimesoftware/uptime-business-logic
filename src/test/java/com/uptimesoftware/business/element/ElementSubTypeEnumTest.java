@@ -5,11 +5,14 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import com.uptimesoftware.business.os.OsVersions;
+
 public class ElementSubTypeEnumTest {
 
 	@Test
 	public void netSwitch() {
-		assertEquals(ElementSubTypeEnum.Switch, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.Node, EntitySubTypeEnum.NetworkDevice, "Neyland 24T", null));
+		assertEquals(ElementSubTypeEnum.Switch,
+				ElementSubTypeEnum.fromEntityData(EntityTypeEnum.Node, EntitySubTypeEnum.NetworkDevice, "Neyland 24T", null));
 	}
 
 	@Test
@@ -19,32 +22,73 @@ public class ElementSubTypeEnumTest {
 	}
 
 	@Test
-	public void windows() {
+	public void windowsAgent() {
 		assertEquals(ElementSubTypeEnum.Windows, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
 				EntitySubTypeEnum.Agent, "Windows_NT Intel64 Family 6 Model 30 Stepping 5, GenuineIntel", "7600"));
-		assertEquals(ElementSubTypeEnum.Windows, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
-				EntitySubTypeEnum.WmiAgentless, "Intel64 Family 6 Model 30 Stepping 5, GenuineIntel",
-				"Microsoft Windows 7 Professional "));
-		assertEquals(ElementSubTypeEnum.Windows, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
-				EntitySubTypeEnum.VirtualMachine, "Microsoft Windows Server 2008 (64-bit)", null));
 	}
 
 	@Test
-	public void linux() {
-		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
-				EntitySubTypeEnum.Agent,
+	public void windowsWmi() {
+		assertEquals(ElementSubTypeEnum.Windows, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
+				EntitySubTypeEnum.WmiAgentless, "Intel64 Family 6 Model 30 Stepping 5, GenuineIntel",
+				"Microsoft Windows 7 Professional "));
+	}
+
+	@Test
+	public void windowsVmAgent() {
+		assertEquals(ElementSubTypeEnum.Windows, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
+				EntitySubTypeEnum.VirtualMachine, "Windows_NT Intel64 Family 6 Model 30 Stepping 5, GenuineIntel", "7600"));
+	}
+
+	@Test
+	public void windowsVmWmi() {
+		assertEquals(ElementSubTypeEnum.Windows, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
+				EntitySubTypeEnum.VirtualMachine, "Intel64 Family 6 Model 30 Stepping 5, GenuineIntel",
+				"Microsoft Windows 7 Professional "));
+	}
+
+	@Test
+	public void windowsVmBasic() {
+		assertEquals(ElementSubTypeEnum.Windows, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
+				EntitySubTypeEnum.VirtualMachine, "Microsoft Windows Server 2008 (64-bit)",
+				OsVersions.UptimeDefinedOsVersion.VirtualMachine.name()));
+	}
+
+	@Test
+	public void linuxAgent() {
+		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System, EntitySubTypeEnum.Agent,
 				"Linux rh-jacky 2.6.32-220.el6.x86_64 #1 SMP Wed Nov 9 08:03:13 EST 2011 x86_64 x86_64 x86_64 GNU/Linux",
 				"RedHat 6.2(Santiago 2.6.32-220.el6.x86_64 x86_64)"));
-		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
-				EntitySubTypeEnum.SnmpV2, "Linux qa-proxy 2.6.27-17-server #1 SMP Fri Mar 12 04:04:33 UTC 2010 i686", null));
+	}
+
+	@Test
+	public void linuxNetSnmp() {
+		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System, EntitySubTypeEnum.SnmpV2,
+				"Linux qa-proxy 2.6.27-17-server #1 SMP Fri Mar 12 04:04:33 UTC 2010 i686", null));
+	}
+
+	@Test
+	public void linuxVmAgent() {
 		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
-				EntitySubTypeEnum.VirtualMachine, "Suse Linux Enterprise 11 (64-bit)", null));
+				EntitySubTypeEnum.VirtualMachine,
+				"Linux rh-jacky 2.6.32-220.el6.x86_64 #1 SMP Wed Nov 9 08:03:13 EST 2011 x86_64 x86_64 x86_64 GNU/Linux",
+				"RedHat 6.2(Santiago 2.6.32-220.el6.x86_64 x86_64)"));
+	}
+
+	@Test
+	public void linuxVmBasic() {
 		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
-				EntitySubTypeEnum.VirtualMachine, "Other Linux (32-bit)", null));
+				EntitySubTypeEnum.VirtualMachine, "Suse Linux Enterprise 11 (64-bit)",
+				OsVersions.UptimeDefinedOsVersion.VirtualMachine.name()));
+		assertEquals(ElementSubTypeEnum.Linux,
+				ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject, EntitySubTypeEnum.VirtualMachine,
+						"Other Linux (32-bit)", OsVersions.UptimeDefinedOsVersion.VirtualMachine.name()));
 		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
-				EntitySubTypeEnum.VirtualMachine, "Red Hat Enterprise Linux 3 (32-bit)", null));
+				EntitySubTypeEnum.VirtualMachine, "Red Hat Enterprise Linux 3 (32-bit)",
+				OsVersions.UptimeDefinedOsVersion.VirtualMachine.name()));
 		assertEquals(ElementSubTypeEnum.Linux, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject,
-				EntitySubTypeEnum.VirtualMachine, "Ubuntu Linux (32-bit)", null));
+				EntitySubTypeEnum.VirtualMachine, "Ubuntu Linux (32-bit)",
+				OsVersions.UptimeDefinedOsVersion.VirtualMachine.name()));
 	}
 
 	@Test
@@ -60,9 +104,13 @@ public class ElementSubTypeEnumTest {
 	}
 
 	@Test
-	public void solaris() {
+	public void solarisAgent() {
 		assertEquals(ElementSubTypeEnum.Solaris, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
 				EntitySubTypeEnum.Agent, "SunOS qa-sol10-x86 5.10 Generic_127128-11 i86pc i386 i86pc", "5.10"));
+	}
+	
+	@Test
+	public void solarisNetSnmp() {
 		assertEquals(ElementSubTypeEnum.Solaris, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
 				EntitySubTypeEnum.SnmpV2, "SunOS filter 5.9 Generic_118558-03 sun4u", null));
 	}
@@ -102,17 +150,18 @@ public class ElementSubTypeEnumTest {
 		assertEquals(ElementSubTypeEnum.Unknown, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.System,
 				EntitySubTypeEnum.Agent, "OSF1 tru64 V5.1 2650 alpha", "V5.1"));
 	}
-	
+
 	@Test
 	public void vnode() {
-		assertEquals(ElementSubTypeEnum.Unknown, ElementSubTypeEnum.fromEntityData(EntityTypeEnum.Node, EntitySubTypeEnum.VirtualNode, null, null));
+		assertEquals(ElementSubTypeEnum.Unknown,
+				ElementSubTypeEnum.fromEntityData(EntityTypeEnum.Node, EntitySubTypeEnum.VirtualNode, null, null));
 	}
-	
+
 	@Test
 	public void sla() {
 		assertNull(ElementSubTypeEnum.fromEntityData(EntityTypeEnum.ServiceLevelAgreement, null, null, null));
 	}
-	
+
 	@Test
 	public void vcenterGroups() {
 		assertNull(ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject, EntitySubTypeEnum.Cluster, null, null));
@@ -122,5 +171,5 @@ public class ElementSubTypeEnumTest {
 		assertNull(ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject, EntitySubTypeEnum.VmwareDatacenter, null, null));
 		assertNull(ElementSubTypeEnum.fromEntityData(EntityTypeEnum.VmwareObject, EntitySubTypeEnum.VmwareFolder, null, null));
 	}
-	
+
 }
