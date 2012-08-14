@@ -200,4 +200,31 @@ public class OperatingSystemsTest {
 		assertEquals("Unknown", osInfo.getArchName());
 	}
 
+	@Test
+	public void testGetOsWithVirtualCenter() {
+		OsInfo osInfo = OperatingSystems.getOsInfo(EntitySubTypeEnum.VirtualCenter, "VMware vCenter Server 4.0.0 build-496403",
+				OsVersions.UptimeDefinedOsVersion.VirtualCenter.name());
+		assertEquals("VMware vCenter Server", osInfo.getOsType());
+		assertEquals("4.0.0 build-496403", osInfo.getOsVersion());
+		assertEquals("Unknown", osInfo.getArchName());
+	}
+
+	@Test
+	public void testGetOsWithHostSystem() {
+		OsInfo osInfo = OperatingSystems.getOsInfo(EntitySubTypeEnum.HostSystem, "VMware ESXi 3.5.0 build-391406",
+				"VMware ESXi 3.5.0 build-391406");
+		assertEquals("VMware ESXi", osInfo.getOsType());
+		assertEquals("3.5.0 build-391406", osInfo.getOsVersion());
+		assertEquals("Unknown", osInfo.getArchName());
+	}
+
+	@Test
+	public void testGetOsWithVmwareEsx() {
+		OsInfo osInfo = OperatingSystems.getOsInfo(EntitySubTypeEnum.VmwareEsx, "VMware ESX 4.0.0 build-702116",
+				"VMware ESX 4.0.0 build-702116");
+		assertEquals("VMware ESX", osInfo.getOsType());
+		assertEquals("4.0.0 build-702116", osInfo.getOsVersion());
+		assertEquals("Unknown", osInfo.getArchName());
+	}
+
 }

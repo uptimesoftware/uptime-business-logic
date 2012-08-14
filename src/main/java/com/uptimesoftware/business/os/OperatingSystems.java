@@ -1,11 +1,17 @@
 package com.uptimesoftware.business.os;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.google.common.base.Strings;
 import com.uptimesoftware.business.element.EntitySubTypeEnum;
 
 public class OperatingSystems {
 
 	public static final OsInfo UNKNOWN = new OsInfo("Unknown", "", Architecture.Unknown);
+	public static final OsInfo UNKNOWN_VMWARE_SERVER = new OsInfo("Unknown VMware Server", "", Architecture.Unknown);
+
+	private static final Pattern vmwareServerArchPattern = Pattern.compile("^(VMware[^0-9]+)(.*)$");
 
 	private static final OsParser windowsParser = new WindowsOsParser();
 	private static final OsParser linuxParser = new LinuxOsParser();
@@ -37,7 +43,7 @@ public class OperatingSystems {
 				return getVmwareGuestOsInfo(arch);
 
 			case VirtualCenter:
-				return getVirtualCenterOsInfo(arch);
+				return getVmwareServerOsInfo(arch);
 
 			default:
 				break;
@@ -48,7 +54,7 @@ public class OperatingSystems {
 		}
 		switch (entitySubType) {
 		case NetworkDevice:
-			return new OsInfo(arch, "", Architecture.Unknown);
+			return getNetworkDeviceOsInfo(arch);
 
 		case LparHmc:
 			return getLparHmcServerOsInfo(osver);
@@ -62,10 +68,35 @@ public class OperatingSystems {
 		case VirtualNode:
 			return UNKNOWN;
 
-		default:
+		case Cluster:
+		case ComputeResource:
+		case ResourcePool:
+		case VirtualApp:
+		case VmwareDatacenter:
+		case VmwareFolder:
+			return UNKNOWN;
+
+		case HostSystem:
+		case VmwareEsx:
+			return getVmwareServerOsInfo(arch);
+
+		case VirtualCenter:
+			// should have been handled above, but just in case
+			return getVmwareServerOsInfo(arch);
+
+		case Agent:
+		case SnmpV2:
+		case SnmpV3:
+		case VirtualMachine:
+		case WmiAgentless:
+			// all of these should have an arch and osver that getOsInfoFromArchAndOsver can figure out
 			break;
 		}
 		return getOsInfoFromArchAndOsver(arch, osver);
+	}
+
+	private static OsInfo getNetworkDeviceOsInfo(String arch) {
+		return new OsInfo(arch, "", Architecture.Unknown);
 	}
 
 	private static OsInfo getVmwareGuestOsInfo(String arch) {
@@ -107,8 +138,15 @@ public class OperatingSystems {
 		return new OsInfo(removeUnderscores(arch), "", Architecture.getArchitecture(arch));
 	}
 
-	private static OsInfo getVirtualCenterOsInfo(String virtualCenterSettingsApiVersion) {
-		return new OsInfo("vCenter", "VMware " + virtualCenterSettingsApiVersion);
+	private static OsInfo getVmwareServerOsInfo(String arch) {
+		if (Strings.isNullOrEmpty(arch)) {
+			return UNKNOWN_VMWARE_SERVER;
+		}
+		Matcher matcher = vmwareServerArchPattern.matcher(arch);
+		if (!matcher.matches()) {
+			return UNKNOWN_VMWARE_SERVER;
+		}
+		return new OsInfo(matcher.group(1).trim(), matcher.group(2).trim());
 	}
 
 	private static OsInfo getNovellNrmOsInfo(String arch) {
