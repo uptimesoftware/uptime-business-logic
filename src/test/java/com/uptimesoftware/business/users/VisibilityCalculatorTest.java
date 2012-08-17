@@ -10,10 +10,11 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.uptimesoftware.business.visibility.ElementGroupFinder;
 import com.uptimesoftware.business.visibility.PermissionChecker;
 import com.uptimesoftware.business.visibility.TagFinder;
-import com.uptimesoftware.business.visibility.TagIdTreeNode;
 import com.uptimesoftware.business.visibility.TagIdTreeNodeImpl;
+import com.uptimesoftware.business.visibility.TreeNodeWithParent;
 import com.uptimesoftware.business.visibility.UserGroupFinder;
 import com.uptimesoftware.business.visibility.VisibilityCalculator;
 
@@ -21,7 +22,7 @@ public class VisibilityCalculatorTest {
 
 	@Test
 	public void nullUserIdThrows() {
-		VisibilityCalculator calc = new VisibilityCalculator(null, null, null);
+		VisibilityCalculator calc = new VisibilityCalculator(null, null, null, null);
 		try {
 			calc.getElementIds(null);
 		} catch (Exception e) {
@@ -31,8 +32,8 @@ public class VisibilityCalculatorTest {
 	}
 
 	@Test
-	public void noGroupsOrTags() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoGroups, NoTags);
+	public void noUserGroupsOrElementGroupsOrTags() {
+		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoUserGroups, NoElementGroups, NoTags);
 		assertArrayEquals(new Long[] {}, elements(calc, user(1)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(3)));
@@ -40,8 +41,8 @@ public class VisibilityCalculatorTest {
 	}
 
 	@Test
-	public void groups() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleGroups, NoTags);
+	public void userGroupsOnly() {
+		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleUserGroups, NoElementGroups, NoTags);
 		assertArrayEquals(new Long[] { element(1), element(2), element(3) }, elements(calc, user(1)));
 		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(3)));
@@ -49,8 +50,8 @@ public class VisibilityCalculatorTest {
 	}
 
 	@Test
-	public void tags() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoGroups, SimpleTags);
+	public void tagsOnly() {
+		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoUserGroups, NoElementGroups, SimpleTags);
 		assertArrayEquals(new Long[] {}, elements(calc, user(1)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
 		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(3)));
@@ -58,8 +59,19 @@ public class VisibilityCalculatorTest {
 	}
 
 	@Test
-	public void groupsAndTags() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleGroups, SimpleTags);
+	public void userGroupsAndElementGroups() {
+		// ElementGroup-1 is visible by UserGroup-1, ElementGroup-2 is visible by UserGroup-2.
+		// ElementGroup-3 is a decendant of ElementGroup-1 and not actually associated with either UserGroup.
+		// Expected results: user-1 should see EG-1, EG-2 and EG-3 (user is in both UG-1 and UG-2). User-2 should see EG-1, EG-3
+		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleUserGroups, ComplexElementGroups, NoTags);
+		assertArrayEquals(new Long[] { elementGroup(1), elementGroup(2), elementGroup(3) }, elementGroups(calc, user(1)));
+		assertArrayEquals(new Long[] { elementGroup(1), elementGroup(3) }, elementGroups(calc, user(2)));
+		assertArrayEquals(new Long[] {}, elementGroups(calc, user(3)));
+	}
+
+	@Test
+	public void userGroupsAndTags() {
+		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleUserGroups, NoElementGroups, SimpleTags);
 		assertArrayEquals(new Long[] { element(1), element(2), element(3) }, elements(calc, user(1)));
 		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
 		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(3)));
@@ -68,16 +80,16 @@ public class VisibilityCalculatorTest {
 
 	@Test
 	public void complexTags() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoGroups, ComplexTags);
+		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoUserGroups, NoElementGroups, ComplexTags);
 		assertArrayEquals(new Long[] { tag(2), tag(3) }, tags(calc, user(1)));
-		assertArrayEquals(new Long[] { }, tags(calc, user(2)));
+		assertArrayEquals(new Long[] {}, tags(calc, user(2)));
 		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(1)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
 	}
 
 	@Test
 	public void complexTagsWithAdmin() {
-		VisibilityCalculator calc = new VisibilityCalculator(User2Admin, NoGroups, ComplexTags);
+		VisibilityCalculator calc = new VisibilityCalculator(User2Admin, NoUserGroups, NoElementGroups, ComplexTags);
 		assertArrayEquals(new Long[] { tag(2), tag(3) }, tags(calc, user(1)));
 		assertArrayEquals(new Long[] { tag(1), tag(2), tag(3), tag(4) }, tags(calc, user(2)));
 		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(1)));
@@ -86,7 +98,7 @@ public class VisibilityCalculatorTest {
 
 	@Test
 	public void simpleGroupsAndComplexTags() {
-		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleGroups, ComplexTags);
+		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleUserGroups, NoElementGroups, ComplexTags);
 		assertArrayEquals(new Long[] { element(1), element(2), element(3), element(4) }, elements(calc, user(1)));
 		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
 	}
@@ -94,7 +106,11 @@ public class VisibilityCalculatorTest {
 	private static final Long[] elements(VisibilityCalculator calc, Long userId) {
 		return toArray(calc.getElementIds(user(userId)));
 	}
-	
+
+	private static final Long[] elementGroups(VisibilityCalculator calc, Long userId) {
+		return toArray(calc.getElementGroupIds(user(userId)));
+	}
+
 	private static final Long[] tags(VisibilityCalculator calc, Long userId) {
 		return toArray(calc.getTagIds(user(userId)));
 	}
@@ -121,6 +137,10 @@ public class VisibilityCalculatorTest {
 		return id * 1000L;
 	}
 
+	private static final long elementGroup(long id) {
+		return id * 10000L;
+	}
+
 	private static final PermissionChecker NoAdmins = new PermissionChecker() {
 
 		@Override
@@ -139,7 +159,7 @@ public class VisibilityCalculatorTest {
 
 	};
 
-	private static final UserGroupFinder NoGroups = new UserGroupFinder() {
+	private static final UserGroupFinder NoUserGroups = new UserGroupFinder() {
 
 		@Override
 		public Set<Long> findUserGroupsByUser(Long userId) {
@@ -152,7 +172,7 @@ public class VisibilityCalculatorTest {
 		}
 	};
 
-	private static final UserGroupFinder SimpleGroups = new UserGroupFinder() {
+	private static final UserGroupFinder SimpleUserGroups = new UserGroupFinder() {
 
 		@Override
 		public Set<Long> findUserGroupsByUser(Long userId) {
@@ -179,6 +199,40 @@ public class VisibilityCalculatorTest {
 		}
 	};
 
+	private static final ElementGroupFinder NoElementGroups = new ElementGroupFinder() {
+
+		@Override
+		public Set<TreeNodeWithParent> findAllElementGroupIdTreeNodes() {
+			return ImmutableSet.of();
+		}
+
+		@Override
+		public Set<Long> findElementGroupsByUserGroups(Set<Long> userGroupIds) {
+			return ImmutableSet.of();
+		}
+
+	};
+
+	private static final ElementGroupFinder ComplexElementGroups = new ElementGroupFinder() {
+		@Override
+		public Set<TreeNodeWithParent> findAllElementGroupIdTreeNodes() {
+			return ImmutableSet.<TreeNodeWithParent> of(new TagIdTreeNodeImpl(elementGroup(1), null), new TagIdTreeNodeImpl(
+					elementGroup(2), null), new TagIdTreeNodeImpl(elementGroup(3), elementGroup(1)));
+		}
+
+		@Override
+		public Set<Long> findElementGroupsByUserGroups(Set<Long> userGroupIds) {
+			Set<Long> elementGroupIds = Sets.newHashSet();
+			if (userGroupIds.contains(userGroup(1))) {
+				elementGroupIds.add(elementGroup(1));
+			}
+			if (userGroupIds.contains(userGroup(2))) {
+				elementGroupIds.add(elementGroup(2));
+			}
+			return elementGroupIds;
+		}
+	};
+
 	private static final TagFinder NoTags = new TagFinder() {
 
 		@Override
@@ -197,8 +251,8 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<TagIdTreeNode> findAllTagIdTreeNodes() {
-			return ImmutableSet.<TagIdTreeNode> of();
+		public Set<TreeNodeWithParent> findAllTagIdTreeNodes() {
+			return ImmutableSet.<TreeNodeWithParent> of();
 		}
 
 		@Override
@@ -228,8 +282,8 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<TagIdTreeNode> findAllTagIdTreeNodes() {
-			return ImmutableSet.<TagIdTreeNode> of(new TagIdTreeNodeImpl(tag(1), null));
+		public Set<TreeNodeWithParent> findAllTagIdTreeNodes() {
+			return ImmutableSet.<TreeNodeWithParent> of(new TagIdTreeNodeImpl(tag(1), null));
 		}
 
 		@Override
@@ -251,7 +305,7 @@ public class VisibilityCalculatorTest {
 			}
 			return ImmutableSet.of();
 		}
-		
+
 		@Override
 		public Set<Long> findTagsByUserGroups(Set<Long> userGroups) {
 			return ImmutableSet.of();
@@ -263,9 +317,9 @@ public class VisibilityCalculatorTest {
 		}
 
 		@Override
-		public Set<TagIdTreeNode> findAllTagIdTreeNodes() {
-			return ImmutableSet.<TagIdTreeNode> of(new TagIdTreeNodeImpl(tag(1), null), new TagIdTreeNodeImpl(tag(2), tag(1)),
-					new TagIdTreeNodeImpl(tag(3), tag(2)));
+		public Set<TreeNodeWithParent> findAllTagIdTreeNodes() {
+			return ImmutableSet.<TreeNodeWithParent> of(new TagIdTreeNodeImpl(tag(1), null),
+					new TagIdTreeNodeImpl(tag(2), tag(1)), new TagIdTreeNodeImpl(tag(3), tag(2)));
 		}
 
 		@Override

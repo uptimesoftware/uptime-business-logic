@@ -1,9 +1,9 @@
 package com.uptimesoftware.business.visibility;
 
 import com.google.common.base.Objects;
-import com.uptimesoftware.business.visibility.TagIdTreeNode;
+import com.uptimesoftware.business.visibility.TreeNodeWithParent;
 
-public final class TagIdTreeNodeImpl implements TagIdTreeNode {
+public final class TagIdTreeNodeImpl implements TreeNodeWithParent {
 
 	private final Long id;
 	private final Long parentId;

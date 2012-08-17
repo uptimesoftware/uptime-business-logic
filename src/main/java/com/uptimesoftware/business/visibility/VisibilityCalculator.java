@@ -8,10 +8,13 @@ public class VisibilityCalculator {
 	private final PermissionChecker permissionChecker;
 	private final UserGroupFinder userGroupFinder;
 	private final TagFinder tagFinder;
+	private final ElementGroupFinder elementGroupFinder;
 
-	public VisibilityCalculator(PermissionChecker permissionChecker, UserGroupFinder userGroupFinder, TagFinder tagFinder) {
+	public VisibilityCalculator(PermissionChecker permissionChecker, UserGroupFinder userGroupFinder,
+			ElementGroupFinder elementGroupFinder, TagFinder tagFinder) {
 		this.permissionChecker = permissionChecker;
 		this.userGroupFinder = userGroupFinder;
+		this.elementGroupFinder = elementGroupFinder;
 		this.tagFinder = tagFinder;
 	}
 
@@ -25,6 +28,30 @@ public class VisibilityCalculator {
 		Set<Long> tagIds = getVisibleTagIds(userId, userGroupIds);
 		visibleElementIds.addAll(tagFinder.findElementsByTags(tagIds));
 		return visibleElementIds;
+	}
+
+	public Set<Long> getElementGroupIds(Long userId) {
+		if (userId == null) {
+			throw new IllegalArgumentException("Cannot get element group ids for null user id.");
+		}
+		Set<Long> visibleElementGroupIds = Sets.newHashSet();
+
+		Set<Long> visibleElementGroupIdsByUserGroups = getVisibleElementGroupIdsByUser(userId);
+		visibleElementGroupIds.addAll(visibleElementGroupIdsByUserGroups);
+		visibleElementGroupIds.addAll(getDescendantElementGroupIds(visibleElementGroupIdsByUserGroups));
+
+		return visibleElementGroupIds;
+	}
+
+	private Set<Long> getVisibleElementGroupIdsByUser(Long userId) {
+		Set<Long> userGroupIds = userGroupFinder.findUserGroupsByUser(userId);
+		return elementGroupFinder.findElementGroupsByUserGroups(userGroupIds);
+	}
+
+	private Set<Long> getDescendantElementGroupIds(Set<Long> visibleElementGroupIdsByUserGroups) {
+		DescendantTreeNodesCalculator calc = new DescendantTreeNodesCalculator(
+				elementGroupFinder.findAllElementGroupIdTreeNodes());
+		return calc.getDescendantNodeIds(visibleElementGroupIdsByUserGroups);
 	}
 
 	public Set<Long> getTagIds(Long userId) {
@@ -42,14 +69,14 @@ public class VisibilityCalculator {
 			userGroupIds = userGroupFinder.findUserGroupsByUser(userId);
 		}
 
-		DescendantTagsByVisibleTagsCalculator calc = new DescendantTagsByVisibleTagsCalculator(tagFinder.findAllTagIdTreeNodes());
+		DescendantTreeNodesCalculator calc = new DescendantTreeNodesCalculator(tagFinder.findAllTagIdTreeNodes());
 
 		Set<Long> directlyVisibleTagIds = Sets.newHashSet();
 		directlyVisibleTagIds.addAll(tagFinder.findTagsByUser(userId));
 		directlyVisibleTagIds.addAll(tagFinder.findTagsByUserGroups(userGroupIds));
 
 		Set<Long> visibleTagIds = Sets.newHashSet();
-		visibleTagIds.addAll(calc.getDescendantTagIds(directlyVisibleTagIds));
+		visibleTagIds.addAll(calc.getDescendantNodeIds(directlyVisibleTagIds));
 		visibleTagIds.addAll(directlyVisibleTagIds);
 		return visibleTagIds;
 	}

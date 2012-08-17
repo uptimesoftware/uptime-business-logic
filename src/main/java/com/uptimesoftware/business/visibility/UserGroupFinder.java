@@ -8,7 +8,7 @@ public interface UserGroupFinder {
 	 * Find all the user group ids that a user belongs to.
 	 */
 	Set<Long> findUserGroupsByUser(Long userId);
-	
+
 	/**
 	 * Find all the element ids that the specified user groups can see.
 	 */

@@ -8,20 +8,20 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-class DescendantTagsByVisibleTagsCalculator {
+class DescendantTreeNodesCalculator {
 
 	private final Multimap<Long, Long> parentToChildMap = HashMultimap.create();
 
-	public DescendantTagsByVisibleTagsCalculator(Set<TagIdTreeNode> tagIdTree) {
-		for (TagIdTreeNode tagIdTreeNode : tagIdTree) {
-			parentToChildMap.put(tagIdTreeNode.getParentId(), tagIdTreeNode.getId());
+	public DescendantTreeNodesCalculator(Set<TreeNodeWithParent> tree) {
+		for (TreeNodeWithParent treeNode : tree) {
+			parentToChildMap.put(treeNode.getParentId(), treeNode.getId());
 		}
 	}
 
-	public Set<Long> getDescendantTagIds(Iterable<Long> tagIds) {
+	public Set<Long> getDescendantNodeIds(Iterable<Long> treeNodeIds) {
 		Set<Long> decendants = Sets.newHashSet();
-		for (Long tagId : tagIds) {
-			collectDescendantsOf(tagId, decendants);
+		for (Long treeNodeId : treeNodeIds) {
+			collectDescendantsOf(treeNodeId, decendants);
 		}
 		return ImmutableSet.copyOf(decendants);
 	}

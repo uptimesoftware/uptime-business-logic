@@ -9,14 +9,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Sets;
-import com.uptimesoftware.business.visibility.DescendantTagsByVisibleTagsCalculator;
-import com.uptimesoftware.business.visibility.TagIdTreeNode;
+import com.uptimesoftware.business.visibility.DescendantTreeNodesCalculator;
+import com.uptimesoftware.business.visibility.TreeNodeWithParent;
 
 public class DescendantViewsByVisibleViewsCalculatorTest {
 
 	private Set<Long> allViewIds;
 	private Set<Long> visibleViewIds;
-	private Set<TagIdTreeNode> viewIdTree;
+	private Set<TreeNodeWithParent> viewIdTree;
 	private Set<Long> calculatedDescendantViewIds;
 
 	@Before
@@ -111,8 +111,8 @@ public class DescendantViewsByVisibleViewsCalculatorTest {
 	}
 
 	private void calculateDescendants() {
-		DescendantTagsByVisibleTagsCalculator calc = new DescendantTagsByVisibleTagsCalculator(viewIdTree);
-		calculatedDescendantViewIds = calc.getDescendantTagIds(visibleViewIds);
+		DescendantTreeNodesCalculator calc = new DescendantTreeNodesCalculator(viewIdTree);
+		calculatedDescendantViewIds = calc.getDescendantNodeIds(visibleViewIds);
 	}
 
 	private void assertDescendantCount(int expectedCount) {

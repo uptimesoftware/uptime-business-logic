@@ -7,7 +7,7 @@ public interface TagFinder {
 	/**
 	 * Find all the tag ids in the database, each with their linked parent id.
 	 */
-	Set<TagIdTreeNode> findAllTagIdTreeNodes();
+	Set<TreeNodeWithParent> findAllTagIdTreeNodes();
 
 	/**
 	 * Find all the tag ids in the database.
