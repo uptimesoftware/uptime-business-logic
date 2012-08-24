@@ -1,7 +1,12 @@
 package com.uptimesoftware.business.element;
 
 public enum EntityTypeEnum {
-	System(1), Node(2), Application(3), ServiceLevelAgreement(4), DataCenter(5), VmwareObject(6);
+	System(1),
+	Node(2),
+	Application(3),
+	ServiceLevelAgreement(4),
+	DataCenter(5),
+	VmwareObject(6);
 
 	public final int id;
 

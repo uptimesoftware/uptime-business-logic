@@ -33,33 +33,33 @@ public enum ElementSubTypeEnum {
 		return defaultName;
 	}
 
-	public static ElementSubTypeEnum fromEntityData(EntityTypeEnum systemType, EntitySubTypeEnum systemSubType, String arch,
+	public static ElementSubTypeEnum fromEntityData(EntityTypeEnum entityType, EntitySubTypeEnum entitySubType, String arch,
 			String osver) {
-		if (ElementSubTypeEnum.isNetworkType(systemType, systemSubType)) {
+		if (ElementSubTypeEnum.isNetworkType(entityType, entitySubType)) {
 			return Switch;
 		}
-		if (ElementSubTypeEnum.isApplicationType(systemType)) {
+		if (ElementSubTypeEnum.isApplicationType(entityType)) {
 			return Application;
 		}
-		if (ElementSubTypeEnum.isServerType(systemType, systemSubType)) {
-			return ElementSubTypeEnum.getServerSubType(systemSubType, arch, osver);
+		if (ElementSubTypeEnum.isServerType(entityType, entitySubType)) {
+			return ElementSubTypeEnum.getServerSubType(entitySubType, arch, osver);
 		}
 		// if we don't know the parent type, then this subtype is irrelevent
 		return null;
 	}
 
-	static private boolean isNetworkType(EntityTypeEnum systemType, EntitySubTypeEnum systemSubType) {
-		return EntityTypeEnum.Node == systemType && systemSubType != EntitySubTypeEnum.VirtualNode;
+	static private boolean isNetworkType(EntityTypeEnum entityType, EntitySubTypeEnum entitySubType) {
+		return EntityTypeEnum.Node == entityType && entitySubType != EntitySubTypeEnum.VirtualNode;
 	}
 
-	static private boolean isApplicationType(EntityTypeEnum systemType) {
-		return EntityTypeEnum.Application == systemType;
+	static private boolean isApplicationType(EntityTypeEnum entityType) {
+		return EntityTypeEnum.Application == entityType;
 	}
 
-	static private boolean isServerType(EntityTypeEnum systemType, EntitySubTypeEnum systemSubType) {
-		return EntityTypeEnum.System == systemType
-				|| (EntityTypeEnum.Node == systemType && EntitySubTypeEnum.VirtualNode == systemSubType)
-				|| (EntityTypeEnum.VmwareObject == systemType && !systemSubType.isVmwareGroup());
+	static private boolean isServerType(EntityTypeEnum entityType, EntitySubTypeEnum entitySubType) {
+		return EntityTypeEnum.System == entityType
+				|| (EntityTypeEnum.Node == entityType && EntitySubTypeEnum.VirtualNode == entitySubType)
+				|| (EntityTypeEnum.VmwareObject == entityType && !entitySubType.isVmwareGroup());
 	}
 
 	static private ElementSubTypeEnum getServerSubTypeFromOs(String arch, String osver) {
@@ -83,7 +83,7 @@ public enum ElementSubTypeEnum {
 
 		case HPUX:
 			return Hpux;
-			
+
 		case Novell:
 			return Netware;
 
@@ -93,8 +93,8 @@ public enum ElementSubTypeEnum {
 		return Unknown;
 	}
 
-	static private ElementSubTypeEnum getServerSubType(EntitySubTypeEnum systemSubType, String arch, String osver) {
-		switch (systemSubType) {
+	static private ElementSubTypeEnum getServerSubType(EntitySubTypeEnum entitySubType, String arch, String osver) {
+		switch (entitySubType) {
 		case Agent:
 		case WmiAgentless:
 		case SnmpV2:
