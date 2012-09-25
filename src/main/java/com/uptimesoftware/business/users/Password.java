@@ -3,6 +3,8 @@ package com.uptimesoftware.business.users;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 public class Password {
 	private final String encrypted;
 
@@ -38,6 +40,7 @@ public class Password {
 		return encrypted;
 	}
 
+	@SuppressWarnings(value="DM_DEFAULT_ENCODING", justification="This is terrible, but we can't change it due to backwards-compatibility.")
 	private static String encrypt(String plaintext) {
 		MessageDigest md;
 		try {
