@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.uptimesoftware</groupId>
 		<artifactId>uptime-parent-pom</artifactId>
-		<version>1.0.6</version>
+		<version>1.0.9</version>
 	</parent>
 	<repositories>
 		<repository>
@@ -27,7 +27,8 @@
 		</plugins>
 	</build>
 	<scm>
-		<url>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/trunk</url>
+		<url>http://uptime-source/listing.php?repname=uptimesoftware&amp;path=%2Fuptime-common%2Fuptime-business-logic%2Ftrunk%2F</url>
+		<connection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/trunk</connection>
 		<developerConnection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/trunk</developerConnection>
 	</scm>
 	<dependencies>
