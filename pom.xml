@@ -6,10 +6,11 @@
 	<name>up.time Business Logic Library</name>
 	<parent>
 		<groupId>com.uptimesoftware</groupId>
-		<artifactId>uptime-parent-pom</artifactId>
-		<version>1.0.9</version>
+		<artifactId>uptime-java-parent-pom</artifactId>
+		<version>1.1.1</version>
 	</parent>
 	<repositories>
+		<!-- We need to define this repository explicitly to find the parent POM, after that everything else will resolve normally. -->
 		<repository>
 			<id>uptime-releases</id>
 			<name>uptime Releases</name>
@@ -21,15 +22,15 @@
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
-					<tagBase>svn://uptime-source/uptime-common/uptime-business-logic/tags</tagBase>
+					<tagBase>${uptime.release.tagBase.root}/uptime-common/uptime-business-logic/tags</tagBase>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<scm>
-		<url>http://uptime-source/listing.php?repname=uptimesoftware&amp;path=%2Fuptime-common%2Fuptime-business-logic%2Ftrunk%2F</url>
-		<connection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/trunk</connection>
-		<developerConnection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/trunk</developerConnection>
+		<url>${uptime.scm.url.root}&amp;path=%2Fuptime-common%2Fuptime-business-logic%2Ftrunk%2F</url>
+		<connection>${uptime.scm.connection.root}/uptime-common/uptime-business-logic/trunk</connection>
+		<developerConnection>${uptime.scm.connection.root}/uptime-common/uptime-business-logic/trunk</developerConnection>
 	</scm>
 	<dependencies>
 		<dependency>
