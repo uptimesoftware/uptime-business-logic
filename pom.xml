@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.uptimesoftware</groupId>
 		<artifactId>uptime-java-parent-pom</artifactId>
-		<version>1.1.1</version>
+		<version>1.1.2</version>
 	</parent>
 	<repositories>
 		<!-- We need to define this repository explicitly to find the parent POM, after that everything else will resolve normally. -->
