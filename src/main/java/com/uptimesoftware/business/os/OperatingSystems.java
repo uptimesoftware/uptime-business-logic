@@ -96,6 +96,9 @@ public class OperatingSystems {
 	}
 
 	private static OsInfo getNetworkDeviceOsInfo(String arch) {
+		if (Strings.isNullOrEmpty(arch)) {
+			return UNKNOWN;
+		}
 		return new OsInfo(arch, "", Architecture.Unknown);
 	}
 
