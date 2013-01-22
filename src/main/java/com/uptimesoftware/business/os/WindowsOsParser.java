@@ -24,6 +24,7 @@ class WindowsOsParser implements OsParser {
 		windowsNameMap.put("6002", new OsInfo("Windows", "Vista/Server 2008"));
 		windowsNameMap.put("7600", new OsInfo("Windows", "7/Server 2008 R2"));
 		windowsNameMap.put("7601", new OsInfo("Windows", "7/Server 2008 R2"));
+		windowsNameMap.put("9200", new OsInfo("Windows", "8/Server 2012"));
 	}
 
 	@Override
