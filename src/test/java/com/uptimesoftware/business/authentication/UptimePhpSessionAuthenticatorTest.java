@@ -1,7 +1,7 @@
 package com.uptimesoftware.business.authentication;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
@@ -51,16 +51,16 @@ public class UptimePhpSessionAuthenticatorTest {
 	}
 
 	@Test
-	public void noCookieReturnsNull() throws AuthenticationException {
+	public void noCookieReturnsAbsent() throws AuthenticationException {
 		UptimePhpSessionAuthenticator authenticator = new UptimePhpSessionAuthenticator(phpSessionDirectory);
-		assertNull(authenticator.getCurrentUserId(request));
+		assertFalse(authenticator.getCurrentUserId(request).isPresent());
 	}
 
 	@Test
 	public void noSessionFileReturnsNull() throws AuthenticationException {
 		UptimePhpSessionAuthenticator authenticator = new UptimePhpSessionAuthenticator(phpSessionDirectory);
 		when(request.getCookies()).thenReturn(cookie("abc"));
-		assertNull(authenticator.getCurrentUserId(request));
+		assertFalse(authenticator.getCurrentUserId(request).isPresent());
 	}
 
 	@Test
@@ -68,15 +68,16 @@ public class UptimePhpSessionAuthenticatorTest {
 		UptimePhpSessionAuthenticator authenticator = new UptimePhpSessionAuthenticator(phpSessionDirectory);
 		Files.createFile(phpSessionDirectory.toPath().resolve("sess_def"));
 		when(request.getCookies()).thenReturn(cookie("def"));
-		assertNull(authenticator.getCurrentUserId(request));
+		assertFalse(authenticator.getCurrentUserId(request).isPresent());
 	}
 
 	@Test
 	public void returnsCorrectUserId() throws AuthenticationException, IOException {
 		UptimePhpSessionAuthenticator authenticator = new UptimePhpSessionAuthenticator(phpSessionDirectory);
-		Files.copy(getClass().getResourceAsStream("sess_9k9r9hvjdp8j23g30tjagumm75"), phpSessionDirectory.toPath().resolve("sess_ghi"));
+		Files.copy(getClass().getResourceAsStream("sess_9k9r9hvjdp8j23g30tjagumm75"),
+				phpSessionDirectory.toPath().resolve("sess_ghi"));
 		when(request.getCookies()).thenReturn(cookie("ghi"));
-		assertEquals(Long.valueOf(1), authenticator.getCurrentUserId(request));
+		assertEquals(Long.valueOf(1), authenticator.getCurrentUserId(request).get());
 	}
 
 	private Cookie[] cookie(String value) {
