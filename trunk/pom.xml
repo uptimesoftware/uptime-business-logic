@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.uptimesoftware.common</groupId>
+	<artifactId>uptime-business-logic</artifactId>
+	<version>1.0.15</version>
+	<name>up.time Business Logic Library</name>
+	<parent>
+		<groupId>com.uptimesoftware</groupId>
+		<artifactId>uptime-java-parent-pom</artifactId>
+		<version>1.1.2</version>
+	</parent>
+	<repositories>
+		<!-- We need to define this repository explicitly to find the parent POM, after that everything else will resolve normally. -->
+		<repository>
+			<id>uptime-releases</id>
+			<name>uptime Releases</name>
+			<url>http://build-sonar.rd.local:8081/nexus/content/repositories/releases/</url>
+		</repository>
+	</repositories>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<tagBase>${uptime.release.tagBase.root}/uptime-common/uptime-business-logic/tags</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<scm>
+		<url>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/tags/uptime-business-logic-1.0.15</url>
+		<connection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/tags/uptime-business-logic-1.0.15</connection>
+		<developerConnection>scm:svn:svn://uptime-source/uptime-common/uptime-business-logic/tags/uptime-business-logic-1.0.15</developerConnection>
+	</scm>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.9.5-rc1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>annotations</artifactId>
+			<version>2.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
