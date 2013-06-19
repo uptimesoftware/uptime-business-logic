@@ -54,7 +54,7 @@ public class VisibilityCalculatorTest {
 		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoUserGroups, NoElementGroups, SimpleTags);
 		assertArrayEquals(new Long[] {}, elements(calc, user(1)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
-		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(3)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(3)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(4)));
 	}
 
@@ -74,32 +74,32 @@ public class VisibilityCalculatorTest {
 		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleUserGroups, NoElementGroups, SimpleTags);
 		assertArrayEquals(new Long[] { element(1), element(2), element(3) }, elements(calc, user(1)));
 		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
-		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(3)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(3)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(4)));
 	}
 
 	@Test
 	public void complexTags() {
 		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, NoUserGroups, NoElementGroups, ComplexTags);
-		assertArrayEquals(new Long[] { tag(2), tag(3) }, tags(calc, user(1)));
+		assertArrayEquals(new Long[] {}, tags(calc, user(1)));
 		assertArrayEquals(new Long[] {}, tags(calc, user(2)));
-		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(1)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(1)));
 		assertArrayEquals(new Long[] {}, elements(calc, user(2)));
 	}
 
 	@Test
 	public void complexTagsWithAdmin() {
 		VisibilityCalculator calc = new VisibilityCalculator(User2Admin, NoUserGroups, NoElementGroups, ComplexTags);
-		assertArrayEquals(new Long[] { tag(2), tag(3) }, tags(calc, user(1)));
+		assertArrayEquals(new Long[] {}, tags(calc, user(1)));
 		assertArrayEquals(new Long[] { tag(1), tag(2), tag(3), tag(4) }, tags(calc, user(2)));
-		assertArrayEquals(new Long[] { element(4) }, elements(calc, user(1)));
+		assertArrayEquals(new Long[] {}, elements(calc, user(1)));
 		assertArrayEquals(new Long[] { element(4), element(5) }, elements(calc, user(2)));
 	}
 
 	@Test
 	public void simpleGroupsAndComplexTags() {
 		VisibilityCalculator calc = new VisibilityCalculator(NoAdmins, SimpleUserGroups, NoElementGroups, ComplexTags);
-		assertArrayEquals(new Long[] { element(1), element(2), element(3), element(4) }, elements(calc, user(1)));
+		assertArrayEquals(new Long[] { element(1), element(2), element(3) }, elements(calc, user(1)));
 		assertArrayEquals(new Long[] { element(1), element(2) }, elements(calc, user(2)));
 	}
 
@@ -236,11 +236,6 @@ public class VisibilityCalculatorTest {
 	private static final TagFinder NoTags = new TagFinder() {
 
 		@Override
-		public Set<Long> findTagsByUser(Long userId) {
-			return ImmutableSet.of();
-		}
-
-		@Override
 		public Set<Long> findTagsByUserGroups(Set<Long> userGroups) {
 			return ImmutableSet.of();
 		}
@@ -262,14 +257,6 @@ public class VisibilityCalculatorTest {
 	};
 
 	private static final TagFinder SimpleTags = new TagFinder() {
-
-		@Override
-		public Set<Long> findTagsByUser(Long userId) {
-			if (userId == user(3)) {
-				return ImmutableSet.of(tag(1));
-			}
-			return ImmutableSet.of();
-		}
 
 		@Override
 		public Set<Long> findTagsByUserGroups(Set<Long> userGroups) {
@@ -297,14 +284,6 @@ public class VisibilityCalculatorTest {
 	};
 
 	private static final TagFinder ComplexTags = new TagFinder() {
-
-		@Override
-		public Set<Long> findTagsByUser(Long userId) {
-			if (userId == user(1)) {
-				return ImmutableSet.of(tag(2));
-			}
-			return ImmutableSet.of();
-		}
 
 		@Override
 		public Set<Long> findTagsByUserGroups(Set<Long> userGroups) {

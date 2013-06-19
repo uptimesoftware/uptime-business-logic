@@ -72,7 +72,6 @@ public class VisibilityCalculator {
 		DescendantTreeNodesCalculator calc = new DescendantTreeNodesCalculator(tagFinder.findAllTagIdTreeNodes());
 
 		Set<Long> directlyVisibleTagIds = Sets.newHashSet();
-		directlyVisibleTagIds.addAll(tagFinder.findTagsByUser(userId));
 		directlyVisibleTagIds.addAll(tagFinder.findTagsByUserGroups(userGroupIds));
 
 		Set<Long> visibleTagIds = Sets.newHashSet();

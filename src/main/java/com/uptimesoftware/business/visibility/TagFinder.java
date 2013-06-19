@@ -15,11 +15,6 @@ public interface TagFinder {
 	Set<Long> findAllTags();
 
 	/**
-	 * Find all the tag ids that a user can see directly.
-	 */
-	Set<Long> findTagsByUser(Long userId);
-
-	/**
 	 * Find all the tag ids that the specified user groups can see.
 	 */
 	Set<Long> findTagsByUserGroups(Set<Long> userGroupIds);
