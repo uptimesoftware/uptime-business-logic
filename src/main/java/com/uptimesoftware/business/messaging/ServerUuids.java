@@ -3,6 +3,7 @@ package com.uptimesoftware.business.messaging;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.UUID;
@@ -10,6 +11,21 @@ import java.util.UUID;
 import com.google.common.base.Charsets;
 
 public class ServerUuids {
+	
+	public enum ServerType {
+		CORE(Paths.get("uptime-core.uuid")),
+		CONTROLLER(Paths.get("etc/uptime-controller.uuid"));
+		
+		private Path path;
+		
+		private ServerType(Path uuidPath) {
+			this.path = uuidPath;
+		}
+
+		public Path getPath() {
+			return path;
+		}
+	}
 
 	public static UUID generate() {
 		return UUID.randomUUID();
