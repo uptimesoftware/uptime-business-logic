@@ -35,7 +35,7 @@ public class AddAgentElementCollectionMethod implements ElementCollectionMethod 
 		return ElementConnectionTypeEnum.Agent;
 	}
 
-	public boolean useGlobalConnectionSettings() {
+	public boolean isUseGlobalConnectionSettings() {
 		return useGlobalConnectionSettings;
 	}
 
@@ -43,7 +43,7 @@ public class AddAgentElementCollectionMethod implements ElementCollectionMethod 
 		return port;
 	}
 
-	public boolean useSSL() {
+	public boolean isUseSSL() {
 		return useSSL;
 	}
 
