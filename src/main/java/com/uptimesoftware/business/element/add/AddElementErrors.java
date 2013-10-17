@@ -2,6 +2,8 @@ package com.uptimesoftware.business.element.add;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.context.FieldContext;
 
@@ -29,7 +31,10 @@ public class AddElementErrors {
 
 	public static final Function<ConstraintViolation, AddElementError> ToAddElementValidationError = new Function<ConstraintViolation, AddElementError>() {
 		@Override
-		public AddElementError apply(ConstraintViolation input) {
+		public AddElementError apply(@Nullable ConstraintViolation input) {
+			if (input == null) {
+				return null;
+			}
 			FieldContext fieldContext = ConstraintViolations.getFieldContext(input.getContext());
 			String field = "unknown";
 			if (fieldContext != null) {

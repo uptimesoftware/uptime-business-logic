@@ -1,5 +1,7 @@
 package com.uptimesoftware.business.validation.oval;
 
+import javax.annotation.Nullable;
+
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.context.FieldContext;
 import net.sf.oval.context.OValContext;
@@ -10,7 +12,10 @@ public class ConstraintViolations {
 
 	public static final Function<ConstraintViolation, String> ToMessage = new Function<ConstraintViolation, String>() {
 		@Override
-		public String apply(ConstraintViolation input) {
+		public String apply(@Nullable ConstraintViolation input) {
+			if (input == null) {
+				return null;
+			}
 			return input.getMessage();
 		}
 	};
