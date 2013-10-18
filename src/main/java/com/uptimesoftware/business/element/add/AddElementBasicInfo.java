@@ -18,6 +18,7 @@ public class AddElementBasicInfo {
 	private final String hostname;
 	@NotNull(message = "The element type is required", errorCode = AddElementErrorCodes.MISSING_FIELD)
 	private final ElementTypeEnum type;
+	@NotNull(message = "The element collection method is required", errorCode = AddElementErrorCodes.MISSING_FIELD)
 	@ValidateNestedProperty
 	private final ElementCollectionMethod collectionMethod;
 
