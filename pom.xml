@@ -9,6 +9,9 @@
 		<artifactId>uptime-java-parent-pom</artifactId>
 		<version>1.1.2</version>
 	</parent>
+	<properties>
+		<jackson.version>1.9.3</jackson.version>
+	</properties>
 	<repositories>
 		<!-- We need to define this repository explicitly to find the parent POM, after that everything else will resolve normally. -->
 		<repository>
@@ -66,6 +69,16 @@
 			<groupId>net.sf.oval</groupId>
 			<artifactId>oval</artifactId>
 			<version>1.82</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 	</dependencies>
 </project>

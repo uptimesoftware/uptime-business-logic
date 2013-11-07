@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 
 public enum ElementConnectionTypeEnum {
-	Agent("agent");
+	Agent(ElementConnectionTypeNames.AGENT_VALUE);
 
 	private static final Map<String, ElementConnectionTypeEnum> JSON_NAMES_MAP;
 
@@ -31,4 +31,5 @@ public enum ElementConnectionTypeEnum {
 	public static ElementConnectionTypeEnum fromJsonName(String jsonName) {
 		return JSON_NAMES_MAP.get(jsonName);
 	}
+
 }
