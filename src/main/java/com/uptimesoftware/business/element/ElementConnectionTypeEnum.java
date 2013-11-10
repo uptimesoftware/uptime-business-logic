@@ -6,8 +6,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 
 public enum ElementConnectionTypeEnum {
-	Agent(ElementConnectionTypeNames.AGENT_VALUE),
-	Wmi(ElementConnectionTypeNames.WMI_VALUE);
+	Agent(ElementConstantStrings.AGENT_CONNECTION_TYPE_JSON_VALUE, ElementConstantStrings.ADD_AGENT_RPC_SERVICE),
+	Wmi(ElementConstantStrings.WMI_CONNECTION_TYPE_JSON_VALUE, ElementConstantStrings.ADD_WMI_RPC_SERVICE);
 
 	private static final Map<String, ElementConnectionTypeEnum> JSON_NAMES_MAP;
 
@@ -20,13 +20,19 @@ public enum ElementConnectionTypeEnum {
 	}
 
 	private String jsonName;
+	private String rpcServiceName;
 
-	private ElementConnectionTypeEnum(String jsonName) {
+	private ElementConnectionTypeEnum(String jsonName, String rpcServiceName) {
 		this.jsonName = jsonName;
+		this.rpcServiceName = rpcServiceName;
 	}
 
 	public String getJsonName() {
 		return jsonName;
+	}
+
+	public String getRpcServiceName() {
+		return rpcServiceName;
 	}
 
 	public static ElementConnectionTypeEnum fromJsonName(String jsonName) {

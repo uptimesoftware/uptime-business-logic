@@ -38,7 +38,7 @@ public class AddWmiElementCollectionMethod implements ElementCollectionMethod {
 
 	@Override
 	public ElementConnectionTypeEnum getConnectionType() {
-		return ElementConnectionTypeEnum.Agent;
+		return ElementConnectionTypeEnum.Wmi;
 	}
 
 	public Boolean isUseGlobalConnectionSettings() {
