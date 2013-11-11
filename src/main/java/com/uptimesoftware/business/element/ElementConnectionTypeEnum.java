@@ -2,12 +2,21 @@ package com.uptimesoftware.business.element;
 
 import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonValue;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 
 public enum ElementConnectionTypeEnum {
-	Agent(ElementConstantStrings.AGENT_CONNECTION_TYPE_JSON_VALUE, ElementConstantStrings.ADD_AGENT_RPC_SERVICE),
-	Wmi(ElementConstantStrings.WMI_CONNECTION_TYPE_JSON_VALUE, ElementConstantStrings.ADD_WMI_RPC_SERVICE);
+	Agent(
+			ElementConstantStrings.AGENT_CONNECTION_TYPE_JSON_VALUE,
+			ElementConstantStrings.ADD_AGENT_RPC_SERVICE,
+			EntitySubTypeEnum.Agent),
+	Wmi(
+			ElementConstantStrings.WMI_CONNECTION_TYPE_JSON_VALUE,
+			ElementConstantStrings.ADD_WMI_RPC_SERVICE,
+			EntitySubTypeEnum.WmiAgentless);
 
 	private static final Map<String, ElementConnectionTypeEnum> JSON_NAMES_MAP;
 
@@ -21,12 +30,15 @@ public enum ElementConnectionTypeEnum {
 
 	private String jsonName;
 	private String rpcServiceName;
+	private EntitySubTypeEnum entitySubType;
 
-	private ElementConnectionTypeEnum(String jsonName, String rpcServiceName) {
+	private ElementConnectionTypeEnum(String jsonName, String rpcServiceName, EntitySubTypeEnum entitySubType) {
 		this.jsonName = jsonName;
 		this.rpcServiceName = rpcServiceName;
+		this.entitySubType = entitySubType;
 	}
 
+	@JsonValue
 	public String getJsonName() {
 		return jsonName;
 	}
@@ -35,8 +47,13 @@ public enum ElementConnectionTypeEnum {
 		return rpcServiceName;
 	}
 
+	@JsonCreator
 	public static ElementConnectionTypeEnum fromJsonName(String jsonName) {
 		return JSON_NAMES_MAP.get(jsonName);
+	}
+
+	public EntitySubTypeEnum getEntitySubType() {
+		return entitySubType;
 	}
 
 }

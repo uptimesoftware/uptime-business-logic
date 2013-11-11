@@ -5,7 +5,7 @@ import net.sf.oval.constraint.NotNull;
 
 import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 
-public class AddWmiElementCollectionMethod implements ElementCollectionMethod {
+public class AddWmiElementCollectionMethod extends ElementCollectionMethod {
 
 	private final Boolean useGlobalConnectionSettings;
 	@NotNull(message = "The WMI Domain is required", errorCode = AddElementErrorCodes.MISSING_FIELD)
@@ -20,6 +20,7 @@ public class AddWmiElementCollectionMethod implements ElementCollectionMethod {
 
 	public AddWmiElementCollectionMethod(Boolean useGlobalConnectionSettings, String wmiDomain, String wmiUsername,
 			String wmiPassword) {
+		super(ElementConnectionTypeEnum.Wmi);
 		if (useGlobalConnectionSettings == null) {
 			useGlobalConnectionSettings = false;
 		}
@@ -34,11 +35,6 @@ public class AddWmiElementCollectionMethod implements ElementCollectionMethod {
 	 */
 	public AddWmiElementCollectionMethod() {
 		this(null, null, null, null);
-	}
-
-	@Override
-	public ElementConnectionTypeEnum getConnectionType() {
-		return ElementConnectionTypeEnum.Wmi;
 	}
 
 	public Boolean isUseGlobalConnectionSettings() {

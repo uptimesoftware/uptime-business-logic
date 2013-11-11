@@ -5,7 +5,7 @@ import net.sf.oval.constraint.Range;
 
 import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 
-public class AddAgentElementCollectionMethod implements ElementCollectionMethod {
+public class AddAgentElementCollectionMethod extends ElementCollectionMethod {
 
 	private final Boolean useGlobalConnectionSettings;
 	@NotNull(message = "The agent port is required", errorCode = AddElementErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
@@ -15,6 +15,7 @@ public class AddAgentElementCollectionMethod implements ElementCollectionMethod 
 	private final Boolean useSSL;
 
 	public AddAgentElementCollectionMethod(Boolean useGlobalConnectionSettings, Integer port, Boolean useSsl) {
+		super(ElementConnectionTypeEnum.Agent);
 		if (useGlobalConnectionSettings == null) {
 			useGlobalConnectionSettings = false;
 		}
@@ -28,11 +29,6 @@ public class AddAgentElementCollectionMethod implements ElementCollectionMethod 
 	 */
 	public AddAgentElementCollectionMethod() {
 		this(null, null, null);
-	}
-
-	@Override
-	public ElementConnectionTypeEnum getConnectionType() {
-		return ElementConnectionTypeEnum.Agent;
 	}
 
 	public Boolean isUseGlobalConnectionSettings() {
