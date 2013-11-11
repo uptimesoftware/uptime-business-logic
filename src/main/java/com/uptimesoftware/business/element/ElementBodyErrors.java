@@ -1,4 +1,4 @@
-package com.uptimesoftware.business.element.add;
+package com.uptimesoftware.business.element;
 
 import java.util.List;
 
@@ -12,26 +12,26 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.uptimesoftware.business.validation.oval.ConstraintViolations;
 
-public class AddElementErrors {
+public class ElementBodyErrors {
 
-	private final List<AddElementError> errors;
+	private final List<ElementBodyError> errors;
 
-	public AddElementErrors(List<AddElementError> errors) {
+	public ElementBodyErrors(List<ElementBodyError> errors) {
 		this.errors = errors;
 	}
 
-	public List<AddElementError> getErrors() {
+	public List<ElementBodyError> getErrors() {
 		return errors;
 	}
 
-	public static AddElementErrors create(List<ConstraintViolation> violations) {
-		return new AddElementErrors(ImmutableList.<AddElementError> builder()
+	public static ElementBodyErrors create(List<ConstraintViolation> violations) {
+		return new ElementBodyErrors(ImmutableList.<ElementBodyError> builder()
 				.addAll(Iterables.transform(violations, ToAddElementValidationError)).build());
 	}
 
-	public static final Function<ConstraintViolation, AddElementError> ToAddElementValidationError = new Function<ConstraintViolation, AddElementError>() {
+	public static final Function<ConstraintViolation, ElementBodyError> ToAddElementValidationError = new Function<ConstraintViolation, ElementBodyError>() {
 		@Override
-		public AddElementError apply(@Nullable ConstraintViolation input) {
+		public ElementBodyError apply(@Nullable ConstraintViolation input) {
 			if (input == null) {
 				return null;
 			}
@@ -41,7 +41,7 @@ public class AddElementErrors {
 				field = fieldContext.getField().getName();
 			}
 			String invalidValue = input.getInvalidValue() == null ? null : input.getInvalidValue().toString();
-			return new AddElementError(field, input.getErrorCode(), input.getMessage(), invalidValue);
+			return new ElementBodyError(field, input.getErrorCode(), input.getMessage(), invalidValue);
 		}
 	};
 

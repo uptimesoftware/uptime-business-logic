@@ -3,15 +3,16 @@ package com.uptimesoftware.business.element.add;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.constraint.Range;
 
+import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 
 public class AddAgentElementCollectionMethod extends ElementCollectionMethod {
 
 	private final Boolean useGlobalConnectionSettings;
-	@NotNull(message = "The agent port is required", errorCode = AddElementErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
-	@Range(min = 1, max = 65535, message = "The agent port must be a number between {min} and {max}", errorCode = AddElementErrorCodes.NUMBER_OUT_OF_RANGE, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@NotNull(message = "The agent port is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@Range(min = 1, max = 65535, message = "The agent port must be a number between {min} and {max}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final Integer port;
-	@NotNull(message = "The agent use SSL value is required", errorCode = AddElementErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@NotNull(message = "The agent use SSL value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final Boolean useSSL;
 
 	public AddAgentElementCollectionMethod(Boolean useGlobalConnectionSettings, Integer port, Boolean useSsl) {

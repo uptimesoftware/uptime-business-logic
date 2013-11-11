@@ -3,19 +3,20 @@ package com.uptimesoftware.business.element.add;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;
 
+import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 
 public class AddWmiElementCollectionMethod extends ElementCollectionMethod {
 
 	private final Boolean useGlobalConnectionSettings;
-	@NotNull(message = "The WMI Domain is required", errorCode = AddElementErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The WMI Domain must be not be more than {max} characters in length", errorCode = AddElementErrorCodes.TOO_LONG)
+	@NotNull(message = "The WMI Domain is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@Length(max = 255, message = "The WMI Domain must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String wmiDomain;
-	@NotNull(message = "The WMI Username is required", errorCode = AddElementErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The WMI Username must be not be more than {max} characters in length", errorCode = AddElementErrorCodes.TOO_LONG)
+	@NotNull(message = "The WMI Username is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@Length(max = 255, message = "The WMI Username must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String wmiUsername;
-	@NotNull(message = "The WMI Password is required", errorCode = AddElementErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The WMI Password must be not be more than {max} characters in length", errorCode = AddElementErrorCodes.TOO_LONG)
+	@NotNull(message = "The WMI Password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@Length(max = 255, message = "The WMI Password must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String wmiPassword;
 
 	public AddWmiElementCollectionMethod(Boolean useGlobalConnectionSettings, String wmiDomain, String wmiUsername,

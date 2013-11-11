@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
+import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 import com.uptimesoftware.business.element.ElementConstantStrings;
 
@@ -15,7 +16,7 @@ import com.uptimesoftware.business.element.ElementConstantStrings;
 		@Type(value = AddWmiElementCollectionMethod.class, name = ElementConstantStrings.WMI_CONNECTION_TYPE_JSON_VALUE) })
 public class ElementCollectionMethod {
 
-	@NotNull(message = "A valid connectionType value is required", errorCode = AddElementErrorCodes.MISSING_FIELD)
+	@NotNull(message = "A valid connectionType value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	private final ElementConnectionTypeEnum connectionType;
 
 	public ElementCollectionMethod(ElementConnectionTypeEnum connectionType) {

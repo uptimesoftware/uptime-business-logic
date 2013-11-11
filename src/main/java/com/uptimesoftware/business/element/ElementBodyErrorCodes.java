@@ -1,6 +1,6 @@
-package com.uptimesoftware.business.element.add;
+package com.uptimesoftware.business.element;
 
-public class AddElementErrorCodes {
+public class ElementBodyErrorCodes {
 	public static final String MISSING_FIELD = "UT-2000";
 	public static final String NUMBER_OUT_OF_RANGE = "UT-2001";
 	public static final String TOO_LONG = "UT-2002";
