@@ -9,14 +9,14 @@ import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 public class AddWmiElementCollectionMethod extends ElementCollectionMethod {
 
 	private final Boolean useGlobalConnectionSettings;
-	@NotNull(message = "The WMI Domain is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The WMI Domain must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@NotNull(message = "The WMI Domain is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@Length(max = 255, message = "The WMI Domain must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final String wmiDomain;
-	@NotNull(message = "The WMI Username is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The WMI Username must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@NotNull(message = "The WMI Username is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@Length(max = 255, message = "The WMI Username must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final String wmiUsername;
-	@NotNull(message = "The WMI Password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The WMI Password must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@NotNull(message = "The WMI Password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@Length(max = 255, message = "The WMI Password must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final String wmiPassword;
 
 	public AddWmiElementCollectionMethod(Boolean useGlobalConnectionSettings, String wmiDomain, String wmiUsername,
