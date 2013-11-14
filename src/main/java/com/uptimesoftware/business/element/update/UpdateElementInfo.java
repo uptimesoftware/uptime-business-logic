@@ -4,8 +4,11 @@ import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateElementInfo {
 
 	@NotNull(message = "The id is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
