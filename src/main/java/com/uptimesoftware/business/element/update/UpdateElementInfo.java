@@ -2,11 +2,13 @@ package com.uptimesoftware.business.element.update;
 
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
+import net.sf.oval.constraint.NotNull;
 
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 
 public class UpdateElementInfo {
 
+	@NotNull(message = "The id is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	private final Long id;
 	@NotEmpty(message = "The element name must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	@Length(max = 50, message = "The element name must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
