@@ -12,13 +12,15 @@ import com.uptimesoftware.business.validation.oval.ValidateNestedProperty;
 public class AddElementBasicInfo {
 
 	@NotNull(message = "The element name is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	// TODO @NotBlank
 	@Length(max = 50, message = "The element name must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String name;
 	@Length(max = 255, message = "The element description must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String description;
 	@NotNull(message = "The element hostname is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	// TODO @NotBlank
 	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
-	@CheckWith(value = ContainsNoSpacesCheck.class, message = "The element hostname must not contain any spaces")
+	@CheckWith(value = ContainsNoSpacesCheck.class, message = "The element hostname must not contain any spaces", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
 	private final String hostname;
 	@NotNull(message = "The element type is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	private final ElementTypeEnum type;

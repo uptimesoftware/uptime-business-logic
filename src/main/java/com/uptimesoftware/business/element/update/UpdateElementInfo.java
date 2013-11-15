@@ -22,7 +22,7 @@ public class UpdateElementInfo {
 	private final String description;
 	@NotBlank(message = "The element hostname must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
-	@CheckWith(value = ContainsNoSpacesCheck.class, message = "The element hostname must not contain any spaces")
+	@CheckWith(value = ContainsNoSpacesCheck.class, message = "The element hostname must not contain any spaces", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
 	private final String hostname;
 
 	// TODO: The following are scheduled for a future ticket.
