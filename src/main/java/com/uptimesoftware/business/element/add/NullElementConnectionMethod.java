@@ -14,17 +14,4 @@ public class NullElementConnectionMethod extends ElementCollectionMethod {
 		super(null);
 	}
 
-	// @Override
-	// public ElementConnectionTypeEnum getConnectionType() {
-	// return null;
-	// }
-	//
-	// public String getConnectionTypeString() {
-	// return connectionType;
-	// }
-	//
-	// public void setConnectionType(String connectionType) {
-	// this.connectionType = connectionType;
-	// }
-	//
 }
