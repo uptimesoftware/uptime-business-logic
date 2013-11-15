@@ -1,10 +1,12 @@
 package com.uptimesoftware.business.element.add;
 
+import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;
 
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementTypeEnum;
+import com.uptimesoftware.business.validation.oval.ContainsNoSpacesCheck;
 import com.uptimesoftware.business.validation.oval.ValidateNestedProperty;
 
 public class AddElementBasicInfo {
@@ -16,6 +18,7 @@ public class AddElementBasicInfo {
 	private final String description;
 	@NotNull(message = "The element hostname is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@CheckWith(value = ContainsNoSpacesCheck.class, message = "The element hostname must not contain any spaces")
 	private final String hostname;
 	@NotNull(message = "The element type is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	private final ElementTypeEnum type;

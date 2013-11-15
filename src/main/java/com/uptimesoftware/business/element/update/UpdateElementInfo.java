@@ -1,25 +1,28 @@
 package com.uptimesoftware.business.element.update;
 
+import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotEmpty;
+import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
+import com.uptimesoftware.business.validation.oval.ContainsNoSpacesCheck;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateElementInfo {
 
 	@NotNull(message = "The id is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	private final Long id;
-	@NotEmpty(message = "The element name must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@NotBlank(message = "The element name must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	@Length(max = 50, message = "The element name must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String name;
 	@Length(max = 255, message = "The element description must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String description;
-	@NotEmpty(message = "The element hostname must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@NotBlank(message = "The element hostname must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@CheckWith(value = ContainsNoSpacesCheck.class, message = "The element hostname must not contain any spaces")
 	private final String hostname;
 
 	// TODO: The following are scheduled for a future ticket.
