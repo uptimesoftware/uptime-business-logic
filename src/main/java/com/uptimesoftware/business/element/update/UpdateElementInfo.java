@@ -8,7 +8,7 @@ import net.sf.oval.constraint.NotNull;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
-import com.uptimesoftware.business.validation.oval.ContainsNoSpacesCheck;
+import com.uptimesoftware.business.validation.oval.ContainsNoWhitespaceCheck;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateElementInfo {
@@ -22,7 +22,7 @@ public class UpdateElementInfo {
 	private final String description;
 	@NotBlank(message = "The element hostname must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
-	@CheckWith(value = ContainsNoSpacesCheck.class, message = "The element hostname must not contain any spaces", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
+	@CheckWith(value = ContainsNoWhitespaceCheck.class, message = "The element hostname must not contain any whitespace", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
 	private final String hostname;
 
 	// TODO: The following are scheduled for a future ticket.
