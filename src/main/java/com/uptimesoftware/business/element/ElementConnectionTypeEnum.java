@@ -16,7 +16,11 @@ public enum ElementConnectionTypeEnum {
 	Wmi(
 			ElementConstantStrings.WMI_CONNECTION_TYPE_JSON_VALUE,
 			ElementConstantStrings.ADD_WMI_RPC_SERVICE,
-			EntitySubTypeEnum.WmiAgentless);
+			EntitySubTypeEnum.WmiAgentless),
+	NetworkDevice(
+			ElementConstantStrings.NETWORK_DEVICE_CONNECTION_TYPE_JSON_VALUE,
+			ElementConstantStrings.ADD_NETWORK_DEVICE_RPC_SERVICE,
+			EntitySubTypeEnum.NetworkDevice);
 
 	private static final Map<String, ElementConnectionTypeEnum> JSON_NAMES_MAP;
 
