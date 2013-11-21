@@ -20,19 +20,19 @@ public class AddNetworkDeviceElementCollectionMethodTest {
 
 	private static final String INVALID = "INVALID";
 	private static final AddNetworkDeviceElementCollectionMethod V2_VALID = new AddNetworkDeviceElementCollectionMethod(false,
-			"v2", 1234, "pub", "pass", null, null, null, true);
+			"v2", 1234, "pub", "user", "pass", null, null, null, true);
 	private static final AddNetworkDeviceElementCollectionMethod V2_INVALID = new AddNetworkDeviceElementCollectionMethod(false,
-			"v2", 1234, null, "pass", null, null, null, true);
+			"v2", 1234, null, "user", "pass", null, null, null, true);
 	private static final AddNetworkDeviceElementCollectionMethod V3_VALID = new AddNetworkDeviceElementCollectionMethod(false,
-			"v3", 1234, null, "pass", "MD5", "pass", "DES", true);
+			"v3", 1234, null, "user", "pass", "MD5", "pass", "DES", true);
 	private static final AddNetworkDeviceElementCollectionMethod V3_INVALID_PASSWORD = new AddNetworkDeviceElementCollectionMethod(
-			false, "v3", 1234, null, null, "MD5", "pass", "DES", true);
+			false, "v3", 1234, null, "user", null, "MD5", "pass", "DES", true);
 	private static final AddNetworkDeviceElementCollectionMethod V3_INVALID_AUTH = new AddNetworkDeviceElementCollectionMethod(
-			false, "v3", 1234, null, "pass", INVALID, "pass", "DES", true);
+			false, "v3", 1234, null, "user", "pass", INVALID, "pass", "DES", true);
 	private static final String V2_VALID_JSON = "{\"connectionType\":\"snmp\",\"useGlobalConnectionSettings\":false,\"snmpVersion\":\"v2\",\"snmpPort\":1234,\"snmpV2ReadCommunity\":\"pub\",\"isPingable\":true}";
-	private static final String V2_VALID_JSON_WITH_NULLS = "{\"connectionType\":\"snmp\",\"useGlobalConnectionSettings\":false,\"snmpVersion\":\"v2\",\"snmpPort\":1234,\"snmpV2ReadCommunity\":\"pub\",\"snmpV3AuthenticationPassword\":\"pass\",\"snmpV3AuthenticationMethod\":null,\"snmpV3PrivacyPassword\":null,\"snmpV3PrivacyType\":null,\"isPingable\":true}";
-	private static final String V3_VALID_JSON = "{\"connectionType\":\"snmp\",\"useGlobalConnectionSettings\":false,\"snmpVersion\":\"v3\",\"snmpPort\":1234,\"snmpV3AuthenticationPassword\":\"pass\",\"snmpV3AuthenticationMethod\":\"MD5\",\"snmpV3PrivacyPassword\":\"pass\",\"snmpV3PrivacyType\":\"DES\",\"isPingable\":true}";
-	private static final String V3_VALID_JSON_WITH_NULLS = "{\"connectionType\":\"snmp\",\"useGlobalConnectionSettings\":false,\"snmpVersion\":\"v3\",\"snmpPort\":1234,\"snmpV2ReadCommunity\":null,\"snmpV3AuthenticationPassword\":\"pass\",\"snmpV3AuthenticationMethod\":\"MD5\",\"snmpV3PrivacyPassword\":\"pass\",\"snmpV3PrivacyType\":\"DES\",\"isPingable\":true}";
+	private static final String V2_VALID_JSON_WITH_NULLS = "{\"connectionType\":\"snmp\",\"useGlobalConnectionSettings\":false,\"snmpVersion\":\"v2\",\"snmpPort\":1234,\"snmpV2ReadCommunity\":\"pub\",\"snmpV3AuthenticationUsername\":\"user\",\"snmpV3AuthenticationPassword\":\"pass\",\"snmpV3AuthenticationMethod\":null,\"snmpV3PrivacyPassword\":null,\"snmpV3PrivacyType\":null,\"isPingable\":true}";
+	private static final String V3_VALID_JSON = "{\"connectionType\":\"snmp\",\"useGlobalConnectionSettings\":false,\"snmpVersion\":\"v3\",\"snmpPort\":1234,\"snmpV3AuthenticationUsername\":\"user\",\"snmpV3AuthenticationPassword\":\"pass\",\"snmpV3AuthenticationMethod\":\"MD5\",\"snmpV3PrivacyPassword\":\"pass\",\"snmpV3PrivacyType\":\"DES\",\"isPingable\":true}";
+	private static final String V3_VALID_JSON_WITH_NULLS = "{\"connectionType\":\"snmp\",\"useGlobalConnectionSettings\":false,\"snmpVersion\":\"v3\",\"snmpPort\":1234,\"snmpV2ReadCommunity\":null,\"snmpV3AuthenticationUsername\":\"user\",\"snmpV3AuthenticationPassword\":\"pass\",\"snmpV3AuthenticationMethod\":\"MD5\",\"snmpV3PrivacyPassword\":\"pass\",\"snmpV3PrivacyType\":\"DES\",\"isPingable\":true}";
 
 	private final ObjectMapper jsonMapper = new ObjectMapper();
 	private final Validator validator = ValidatorFactory.getValidator();

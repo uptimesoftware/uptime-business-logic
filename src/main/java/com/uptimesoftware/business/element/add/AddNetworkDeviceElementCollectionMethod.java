@@ -42,6 +42,9 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 	@Length(max = 255, message = "The snmp v2 read community must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V2)
 	private final String snmpV2ReadCommunity;
 	@NotNull(message = "The snmp v3 authentication password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
+	@Length(max = 255, message = "The snmp v3 authentication username must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
+	private final String snmpV3AuthenticationUsername;
+	@NotNull(message = "The snmp v3 authentication password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
 	@Length(max = 255, message = "The snmp v3 authentication password must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
 	private final String snmpV3AuthenticationPassword;
 	@NotNull(message = "The snmp v3 authentication method is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
@@ -68,6 +71,7 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 			@JsonProperty("useGlobalConnectionSettings") Boolean useGlobalConnectionSettings,
 			@JsonProperty("snmpVersion") String snmpVersion, @JsonProperty("snmpPort") Integer snmpPort,
 			@JsonProperty("snmpV2ReadCommunity") String snmpV2ReadCommunity,
+			@JsonProperty("snmpV3AuthenticationUsername") String snmpV3AuthenticationUsername,
 			@JsonProperty("snmpV3AuthenticationPassword") String snmpV3AuthenticationPassword,
 			@JsonProperty("snmpV3AuthenticationMethod") String snmpV3AuthenticationMethod,
 			@JsonProperty("snmpV3PrivacyPassword") String snmpV3PrivacyPassword,
@@ -80,6 +84,7 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 		this.snmpVersion = snmpVersion;
 		this.snmpPort = snmpPort;
 		this.snmpV2ReadCommunity = snmpV2ReadCommunity;
+		this.snmpV3AuthenticationUsername = snmpV3AuthenticationUsername;
 		this.snmpV3AuthenticationPassword = snmpV3AuthenticationPassword;
 		this.snmpV3AuthenticationMethod = snmpV3AuthenticationMethod;
 		this.snmpV3PrivacyPassword = snmpV3PrivacyPassword;
@@ -106,6 +111,10 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 
 	public String getSnmpV2ReadCommunity() {
 		return snmpV2ReadCommunity;
+	}
+
+	public String getSnmpV3AuthenticationUsername() {
+		return snmpV3AuthenticationUsername;
 	}
 
 	public String getSnmpV3AuthenticationPassword() {
@@ -198,8 +207,8 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(super.hashCode(), isPingable, snmpPort, snmpV2ReadCommunity, snmpV3AuthenticationMethod,
-				snmpV3AuthenticationPassword, snmpV3PrivacyPassword, snmpV3PrivacyType, snmpVersion);
+		return Objects.hash(super.hashCode(), isPingable, snmpPort, snmpV2ReadCommunity, snmpV3AuthenticationUsername,
+				snmpV3AuthenticationMethod, snmpV3AuthenticationPassword, snmpV3PrivacyPassword, snmpV3PrivacyType, snmpVersion);
 	}
 
 	@Override
@@ -216,6 +225,7 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 		AddNetworkDeviceElementCollectionMethod other = (AddNetworkDeviceElementCollectionMethod) obj;
 		return Objects.equals(isPingable, other.isPingable) && Objects.equals(snmpPort, other.snmpPort)
 				&& Objects.equals(snmpV2ReadCommunity, other.snmpV2ReadCommunity)
+				&& Objects.equals(snmpV3AuthenticationUsername, other.snmpV3AuthenticationUsername)
 				&& Objects.equals(snmpV3AuthenticationMethod, other.snmpV3AuthenticationMethod)
 				&& Objects.equals(snmpV3AuthenticationPassword, other.snmpV3AuthenticationPassword)
 				&& Objects.equals(snmpV3PrivacyPassword, other.snmpV3PrivacyPassword)
@@ -227,6 +237,7 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 		return super.toStringHelper().add("useGlobalConnectionSettings", useGlobalConnectionSettings)
 				.add("snmpVersion", snmpVersion).add("snmpPort", snmpPort).add("snmpV2ReadCommunity", snmpV2ReadCommunity)
 				.add("snmpV3AuthenticationMethod", snmpV3AuthenticationMethod)
+				.add("snmpV3AuthenticationUsername", snmpV3AuthenticationUsername)
 				.add("snmpV3AuthenticationPassword", snmpV3AuthenticationPassword).add("snmpV3PrivacyType", snmpV3PrivacyType)
 				.add("snmpV3PrivacyPassword", snmpV3PrivacyPassword);
 	}
