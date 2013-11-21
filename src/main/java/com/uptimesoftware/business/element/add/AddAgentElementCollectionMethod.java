@@ -1,8 +1,14 @@
 package com.uptimesoftware.business.element.add;
 
+import java.util.Objects;
+
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.constraint.Range;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.google.common.base.Objects.ToStringHelper;
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 
@@ -15,7 +21,9 @@ public class AddAgentElementCollectionMethod extends ElementCollectionMethod {
 	@NotNull(message = "The agent use SSL value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final Boolean useSSL;
 
-	public AddAgentElementCollectionMethod(Boolean useGlobalConnectionSettings, Integer port, Boolean useSsl) {
+	@JsonCreator
+	public AddAgentElementCollectionMethod(@JsonProperty("useGlobalConnectionSettings") Boolean useGlobalConnectionSettings,
+			@JsonProperty("port") Integer port, @JsonProperty("useSSL") Boolean useSsl) {
 		super(ElementConnectionTypeEnum.Agent);
 		if (useGlobalConnectionSettings == null) {
 			useGlobalConnectionSettings = false;
@@ -23,13 +31,6 @@ public class AddAgentElementCollectionMethod extends ElementCollectionMethod {
 		this.useGlobalConnectionSettings = useGlobalConnectionSettings;
 		this.port = port;
 		this.useSSL = useSsl;
-	}
-
-	/**
-	 * for json deserialization
-	 */
-	public AddAgentElementCollectionMethod() {
-		this(null, null, null);
 	}
 
 	public Boolean isUseGlobalConnectionSettings() {
@@ -44,4 +45,30 @@ public class AddAgentElementCollectionMethod extends ElementCollectionMethod {
 		return useSSL;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), useGlobalConnectionSettings, port, useSSL);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		AddAgentElementCollectionMethod other = (AddAgentElementCollectionMethod) obj;
+		return Objects.equals(useGlobalConnectionSettings, other.useGlobalConnectionSettings) && Objects.equals(port, other.port)
+				&& Objects.equals(useSSL, other.useSSL);
+	}
+
+	@Override
+	protected ToStringHelper toStringHelper() {
+		return super.toStringHelper().add("useGlobalConnectionSettings", useGlobalConnectionSettings).add("port", port)
+				.add("useSSL", useSSL);
+	}
 }
