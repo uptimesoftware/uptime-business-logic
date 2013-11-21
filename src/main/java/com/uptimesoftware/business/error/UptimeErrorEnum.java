@@ -85,7 +85,10 @@ public enum UptimeErrorEnum {
 	MissingCoreUuidException("UT-1023", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to obtain Core UUID"),
 	NoAddElementPermission("UT-1024", HttpServletResponse.SC_BAD_REQUEST, "User does not have permission to add elements"),
 	InvalidRequestBodyJson("UT-1025", HttpServletResponse.SC_BAD_REQUEST, "Could not parse json in http request body"),
-	VmNotDeleted("UT-1026", HttpServletResponse.SC_FORBIDDEN, "Virtual Machines and ESX Hosts cannot be deleted"),
+	VmNotDeleted(
+			"UT-1026",
+			HttpServletResponse.SC_FORBIDDEN,
+			"Virtual Machines and ESX Hosts which have been ignored cannot be deleted"),
 	ElementNotDeleted("UT-1027", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Could not delete element"),
 	UrlIdBodyIdMismatch("UT-1028", HttpServletResponse.SC_BAD_REQUEST, "Element Id in URL and body do not match"),
 	DuplicateHostname(
