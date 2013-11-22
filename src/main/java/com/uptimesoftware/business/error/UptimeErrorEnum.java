@@ -84,7 +84,7 @@ public enum UptimeErrorEnum {
 			"Unknown exception received from the messenger service: ''{0}''"),
 	MissingCoreUuidException("UT-1023", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to obtain Core UUID"),
 	NoAddElementPermission("UT-1024", HttpServletResponse.SC_BAD_REQUEST, "User does not have permission to add elements"),
-	InvalidRequestBodyJson("UT-1025", HttpServletResponse.SC_BAD_REQUEST, "Could not parse json in http request body"),
+	InvalidRequestBodyJson("UT-1025", HttpServletResponse.SC_BAD_REQUEST, "Could not parse json in http request body: {0}"),
 	VmNotDeleted(
 			"UT-1026",
 			HttpServletResponse.SC_FORBIDDEN,
