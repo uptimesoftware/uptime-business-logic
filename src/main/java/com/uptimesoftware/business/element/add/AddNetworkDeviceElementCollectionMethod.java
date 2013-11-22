@@ -39,19 +39,19 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 	@Range(min = 1, max = 65535, message = "The snmp port must be a number between {min} and {max}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE, when = NOT_GLOBAL)
 	private final Integer snmpPort;
 	@NotNull(message = "The snmp v2 read community is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V2)
-	@Length(max = 255, message = "The snmp v2 read community must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V2)
+	@Length(max = 255, message = "The snmp v2 read community must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V2)
 	private final String snmpV2ReadCommunity;
 	@NotNull(message = "The snmp v3 authentication password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
-	@Length(max = 255, message = "The snmp v3 authentication username must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
+	@Length(max = 255, message = "The snmp v3 authentication username must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
 	private final String snmpV3Username;
 	@NotNull(message = "The snmp v3 authentication password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
-	@Length(max = 255, message = "The snmp v3 authentication password must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
+	@Length(max = 255, message = "The snmp v3 authentication password must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
 	private final String snmpV3AuthenticationPassword;
 	@NotNull(message = "The snmp v3 authentication method is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
 	@CheckWith(value = SnmpV3AuthMethodCheck.class, message = "The snmp v3 authentication method is invalid. It must be one of {validValues}.", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
 	private final String snmpV3AuthenticationMethod;
 	@NotNull(message = "The snmp v3 privacy password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
-	@Length(max = 255, message = "The snmp v3 privacy password must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
+	@Length(max = 255, message = "The snmp v3 privacy password must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
 	private final String snmpV3PrivacyPassword;
 	@NotNull(message = "The snmp v3 privacy type is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
 	@CheckWith(value = SnmpV3PrivacyTypeCheck.class, message = "The snmp v3 privacy type is invalid. It must be one of {validValues}.", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
