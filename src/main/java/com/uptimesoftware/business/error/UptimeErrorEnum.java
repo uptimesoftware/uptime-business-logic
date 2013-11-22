@@ -99,6 +99,10 @@ public enum UptimeErrorEnum {
 			"UT-1030",
 			HttpServletResponse.SC_BAD_REQUEST,
 			"Another element (which you may not have permission to view) exists with this name"),
+	WmiNotSupported(
+			"UT-2007",
+			HttpServletResponse.SC_BAD_REQUEST,
+			"The up.time Data Collector does not support WMI communication."),
 	KnownCoreError("DUMMY-SUPPLIED_BY_CORE", HttpServletResponse.SC_BAD_REQUEST, "{0}");
 
 	private final String code;
