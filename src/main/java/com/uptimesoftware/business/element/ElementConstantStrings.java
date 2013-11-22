@@ -10,5 +10,5 @@ public interface ElementConstantStrings {
 	public static final String DELETE_ELEMENT_RPC_SERVICE = "DELETE_ELEMENT";
 	public static final String DELETE_VCENTER_ELEMENT_RPC_SERVICE = "DELETE_VCENTER_ELEMENT";
 	public static final String UPDATE_ELEMENT_RPC_SERVICE = "UPDATE_ELEMENT";
-	public static final String IGNORE_VIRTUAL_ELEMENT_RPC_SERVICE = "UPDATE_ELEMENT";
+	public static final String IGNORE_VIRTUAL_ELEMENT_RPC_SERVICE = "IGNORE_VIRTUAL_ELEMENT";
 }
