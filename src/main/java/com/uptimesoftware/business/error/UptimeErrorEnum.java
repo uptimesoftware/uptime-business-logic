@@ -89,7 +89,7 @@ public enum UptimeErrorEnum {
 			"UT-1026",
 			HttpServletResponse.SC_FORBIDDEN,
 			"Virtual Machines and ESX Hosts which have been ignored cannot be deleted"),
-	EsxInClusterNotDeleted("UT-1027", HttpServletResponse.SC_FORBIDDEN, "ESX Hosts which belong to a cluster cannot be deleted"),
+	ClusterEsxNotDeleted("UT-1027", HttpServletResponse.SC_FORBIDDEN, "ESX Hosts which belong to a cluster cannot be deleted"),
 	UrlIdBodyIdMismatch("UT-1028", HttpServletResponse.SC_BAD_REQUEST, "Element Id in URL and body do not match"),
 	DuplicateHostname(
 			"UT-1029",
