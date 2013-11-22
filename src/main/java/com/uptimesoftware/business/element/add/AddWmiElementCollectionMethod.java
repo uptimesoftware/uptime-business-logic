@@ -16,7 +16,6 @@ public class AddWmiElementCollectionMethod extends ElementCollectionMethod {
 
 	private static final String NOT_GLOBAL = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()";
 	private final Boolean useGlobalConnectionSettings;
-	@NotNull(message = "The WMI Domain is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = NOT_GLOBAL)
 	@Length(max = 255, message = "The WMI Domain must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = NOT_GLOBAL)
 	private final String wmiDomain;
 	@NotNull(message = "The WMI Username is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = NOT_GLOBAL)
