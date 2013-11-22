@@ -13,14 +13,14 @@ import com.uptimesoftware.business.validation.oval.ValidateNestedProperty;
 public class AddElementBasicInfo {
 
 	@NotNull(message = "The element name is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@NotBlank(message = "The element name must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Length(max = 50, message = "The element name must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@NotBlank(message = "The element name must not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@Length(max = 50, message = "The element name must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String name;
-	@Length(max = 255, message = "The element description must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@Length(max = 255, message = "The element description must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	private final String description;
 	@NotNull(message = "The element hostname is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@NotBlank(message = "The element hostname must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@NotBlank(message = "The element hostname must not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@Length(max = 255, message = "The element hostname must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	@CheckWith(value = ContainsNoWhitespaceCheck.class, message = "The element hostname must not contain any whitespace", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
 	private final String hostname;
 	@NotNull(message = "The element type is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
