@@ -2,7 +2,7 @@ package com.uptimesoftware.business.error;
 
 import javax.servlet.http.HttpServletResponse;
 
-public enum UptimeErrorEnum {
+public enum UptimeErrorEnum implements UptimeError {
 	NotFound("UT-0404", HttpServletResponse.SC_NOT_FOUND, "A resource was not found."),
 	Unknown("UT-0500", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unknown error has occurred."),
 	UnknownException(
@@ -119,14 +119,17 @@ public enum UptimeErrorEnum {
 		this.description = description;
 	}
 
+	@Override
 	public String getCode() {
 		return code;
 	}
 
+	@Override
 	public int getHttpStatus() {
 		return httpStatus;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
