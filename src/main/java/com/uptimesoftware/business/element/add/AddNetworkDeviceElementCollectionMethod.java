@@ -41,7 +41,7 @@ public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMe
 	@NotNull(message = "The snmp v2 read community is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V2)
 	@Length(max = 255, message = "The snmp v2 read community must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V2)
 	private final String snmpV2ReadCommunity;
-	@NotNull(message = "The snmp v3 authentication password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
+	@NotNull(message = "The snmp v3 authentication username is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
 	@Length(max = 255, message = "The snmp v3 authentication username must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = IS_V3)
 	private final String snmpV3Username;
 	@NotNull(message = "The snmp v3 authentication password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = IS_V3)
