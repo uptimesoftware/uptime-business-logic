@@ -99,10 +99,10 @@ public enum UptimeErrorEnum implements UptimeError {
 			"UT-1030",
 			HttpServletResponse.SC_BAD_REQUEST,
 			"Another element (which you may not have permission to view) exists with this name"),
-	MultipleElementsExist(
+	NotSingleElement(
 			"UT-1031",
 			HttpServletResponse.SC_BAD_REQUEST,
-			"The element id ''{0}'' corresponds to multiple elements."),
+			"The element id ''{0}'' does not correspond to a single element."),
 	WmiNotSupported(
 			"UT-2007",
 			HttpServletResponse.SC_BAD_REQUEST,
