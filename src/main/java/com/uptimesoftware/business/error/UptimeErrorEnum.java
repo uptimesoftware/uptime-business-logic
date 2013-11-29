@@ -103,6 +103,7 @@ public enum UptimeErrorEnum implements UptimeError {
 			"UT-1031",
 			HttpServletResponse.SC_BAD_REQUEST,
 			"The element id ''{0}'' does not correspond to a single element."),
+	ManualMonitorNotDeleted("UT-1032", HttpServletResponse.SC_FORBIDDEN, "Manually monitored hosts cannot be deleted"),
 	WmiNotSupported(
 			"UT-2007",
 			HttpServletResponse.SC_BAD_REQUEST,
