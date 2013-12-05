@@ -24,9 +24,9 @@ public class UpdateElementInfo {
 	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
 	@CheckWith(value = ContainsNoWhitespaceCheck.class, message = "The element hostname must not contain any whitespace", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
 	private final String hostname;
+	private final Boolean isMonitored;
 
 	// TODO: The following are scheduled for a future ticket.
-	// private final Boolean isMonitored;
 
 	// private final Boolean inMaintenance;
 
@@ -40,14 +40,15 @@ public class UpdateElementInfo {
 	 * for json deserialization
 	 */
 	public UpdateElementInfo() {
-		this(null, null, null, null);
+		this(null, null, null, null, null);
 	}
 
-	public UpdateElementInfo(Long id, String name, String description, String hostname) {
+	public UpdateElementInfo(Long id, String name, String description, String hostname, Boolean isMonitored) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.hostname = hostname;
+		this.isMonitored = isMonitored;
 	}
 
 	public long getId() {
@@ -66,4 +67,7 @@ public class UpdateElementInfo {
 		return hostname;
 	}
 
+	public Boolean getIsMonitored() {
+		return isMonitored;
+	}
 }
