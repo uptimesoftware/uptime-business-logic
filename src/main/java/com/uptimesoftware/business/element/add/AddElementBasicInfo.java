@@ -11,6 +11,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementTypeEnum;
+import com.uptimesoftware.business.elementgroup.ElementGroups;
 import com.uptimesoftware.business.validation.oval.ContainsNoWhitespaceCheck;
 import com.uptimesoftware.business.validation.oval.ValidateNestedProperty;
 
@@ -30,7 +31,7 @@ public class AddElementBasicInfo {
 	@NotNull(message = "The element type is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	private final ElementTypeEnum type;
 	@NotNull(message = "The group id is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Min(value = 1, message = "The group id must be greater than or equal to {invalidValue}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE)
+	@Min(value = ElementGroups.MY_INFRASTRUCTURE_ID_DOUBLE, message = "The group id must be greater than or equal to {min}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE)
 	private final Long groupId;
 	@NotNull(message = "The element collection method is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
 	@ValidateNestedProperty

@@ -2,12 +2,16 @@ package com.uptimesoftware.business.element.update;
 
 import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.Min;
 import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNull;
 
+import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
+import com.uptimesoftware.business.elementgroup.ElementGroups;
 import com.uptimesoftware.business.validation.oval.ContainsNoWhitespaceCheck;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,6 +29,8 @@ public class UpdateElementInfo {
 	@CheckWith(value = ContainsNoWhitespaceCheck.class, message = "The element hostname must not contain any whitespace", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
 	private final String hostname;
 	private final Boolean isMonitored;
+	@Min(value = ElementGroups.MY_INFRASTRUCTURE_ID_DOUBLE, message = "The group id must be greater than or equal to {min}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE)
+	private final Long groupId;
 
 	// TODO: The following are scheduled for a future ticket.
 
@@ -36,19 +42,16 @@ public class UpdateElementInfo {
 
 	// private final String tags;
 
-	/**
-	 * for json deserialization
-	 */
-	public UpdateElementInfo() {
-		this(null, null, null, null, null);
-	}
-
-	public UpdateElementInfo(Long id, String name, String description, String hostname, Boolean isMonitored) {
+	@JsonCreator
+	public UpdateElementInfo(@JsonProperty("id") Long id, @JsonProperty("name") String name,
+			@JsonProperty("description") String description, @JsonProperty("hostname") String hostname,
+			@JsonProperty("isMonitored") Boolean isMonitored, @JsonProperty("groupId") Long groupId) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.hostname = hostname;
 		this.isMonitored = isMonitored;
+		this.groupId = groupId;
 	}
 
 	public long getId() {
@@ -69,5 +72,9 @@ public class UpdateElementInfo {
 
 	public Boolean getIsMonitored() {
 		return isMonitored;
+	}
+
+	public Long getGroupId() {
+		return groupId;
 	}
 }
