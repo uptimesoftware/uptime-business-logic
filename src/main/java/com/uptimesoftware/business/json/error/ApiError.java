@@ -1,9 +1,12 @@
 package com.uptimesoftware.business.json.error;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.uptimesoftware.business.error.UptimeError;
 
 public class ApiError {
 	private final String error;
@@ -13,6 +16,11 @@ public class ApiError {
 	public ApiError(@JsonProperty("error") String error, @JsonProperty("errorDescription") String errorDescription) {
 		this.error = error;
 		this.errorDescription = errorDescription;
+	}
+
+	public static final ApiError create(UptimeError uptimeError, String... uptimeErrorDescriptionArguments) {
+		return new ApiError(uptimeError.getCode(), MessageFormat.format(uptimeError.getDescription(),
+				(Object[]) uptimeErrorDescriptionArguments));
 	}
 
 	public String getError() {

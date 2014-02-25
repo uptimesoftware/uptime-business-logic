@@ -16,13 +16,13 @@ public class AddWmiElementCollectionMethod extends ElementCollectionMethod {
 
 	private static final String NOT_GLOBAL = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()";
 	private final Boolean useGlobalConnectionSettings;
-	@Length(max = 255, message = "The WMI Domain must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = NOT_GLOBAL)
+	@Length(max = 255, message = "The WMI Domain must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG_1045, when = NOT_GLOBAL)
 	private final String wmiDomain;
-	@NotNull(message = "The WMI Username is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = NOT_GLOBAL)
-	@Length(max = 255, message = "The WMI Username must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = NOT_GLOBAL)
+	@NotNull(message = "The WMI Username is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043, when = NOT_GLOBAL)
+	@Length(max = 255, message = "The WMI Username must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG_1045, when = NOT_GLOBAL)
 	private final String wmiUsername;
-	@NotNull(message = "The WMI Password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = NOT_GLOBAL)
-	@Length(max = 255, message = "The WMI Password must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG, when = NOT_GLOBAL)
+	@NotNull(message = "The WMI Password is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043, when = NOT_GLOBAL)
+	@Length(max = 255, message = "The WMI Password must not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG_1045, when = NOT_GLOBAL)
 	private final String wmiPassword;
 
 	@JsonCreator

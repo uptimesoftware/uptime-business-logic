@@ -17,19 +17,19 @@ import com.uptimesoftware.business.validation.oval.ContainsNoWhitespaceCheck;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateElementInfo {
 
-	@NotNull(message = "The id is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@NotNull(message = "The id is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043)
 	private final Long id;
-	@NotBlank(message = "The element name must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Length(max = 50, message = "The element name must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@NotBlank(message = "The element name must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043)
+	@Length(max = 50, message = "The element name must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG_1045)
 	private final String name;
-	@Length(max = 255, message = "The element description must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
+	@Length(max = 255, message = "The element description must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG_1045)
 	private final String description;
-	@NotBlank(message = "The element hostname must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
-	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG)
-	@CheckWith(value = ContainsNoWhitespaceCheck.class, message = "The element hostname must not contain any whitespace", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME)
+	@NotBlank(message = "The element hostname must be not be empty", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043)
+	@Length(max = 255, message = "The element hostname must be not be more than {max} characters in length", errorCode = ElementBodyErrorCodes.TOO_LONG_1045)
+	@CheckWith(value = ContainsNoWhitespaceCheck.class, message = "The element hostname must not contain any whitespace", errorCode = ElementBodyErrorCodes.SPACES_IN_HOSTNAME_1040)
 	private final String hostname;
 	private final Boolean isMonitored;
-	@Min(value = ElementGroups.MY_INFRASTRUCTURE_ID_DOUBLE, message = "The group id must be greater than or equal to {min}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE)
+	@Min(value = ElementGroups.MY_INFRASTRUCTURE_ID_DOUBLE, message = "The group id must be greater than or equal to {min}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE_1044)
 	private final Long groupId;
 
 	// TODO: The following are scheduled for a future ticket.

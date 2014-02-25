@@ -15,10 +15,10 @@ import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 public class AddAgentElementCollectionMethod extends ElementCollectionMethod {
 
 	private final Boolean useGlobalConnectionSettings;
-	@NotNull(message = "The agent port is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
-	@Range(min = 1, max = 65535, message = "The agent port must be a number between {min} and {max}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@NotNull(message = "The agent port is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@Range(min = 1, max = 65535, message = "The agent port must be a number between {min} and {max}", errorCode = ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE_1044, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final Integer port;
-	@NotNull(message = "The agent use SSL value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
+	@NotNull(message = "The agent use SSL value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043, when = "jrejs:!_this.isUseGlobalConnectionSettings().booleanValue()")
 	private final Boolean useSSL;
 
 	@JsonCreator

@@ -2,7 +2,9 @@ package com.uptimesoftware.business.error;
 
 import javax.servlet.http.HttpServletResponse;
 
-public enum UptimeErrorEnum implements UptimeError {
+import com.uptimesoftware.business.element.ElementBodyErrorCodes;
+
+public enum UptimeErrorEnum {
 	NotFound("UT-0404", HttpServletResponse.SC_NOT_FOUND, "A resource was not found."),
 	Unknown("UT-0500", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unknown error has occurred."),
 	UnknownException(
@@ -104,35 +106,105 @@ public enum UptimeErrorEnum implements UptimeError {
 			HttpServletResponse.SC_BAD_REQUEST,
 			"The element id ''{0}'' does not correspond to a single element."),
 	ManualMonitorNotDeleted("UT-1032", HttpServletResponse.SC_FORBIDDEN, "Manually monitored hosts cannot be deleted"),
+	LicenseViolation("UT-1033", HttpServletResponse.SC_BAD_REQUEST, "Adding this system will violate the current license"),
 	WmiNotSupported(
-			"UT-2007",
+			"UT-1034",
 			HttpServletResponse.SC_BAD_REQUEST,
 			"The up.time Data Collector does not support WMI communication."),
+	UnknownAddElementError(
+			"UT-1035",
+			HttpServletResponse.SC_BAD_REQUEST,
+			"An exception occurred attempting to add an element: {0}"),
+	UnknownCoreError("UT-1036", HttpServletResponse.SC_BAD_REQUEST, "An exception occurred on the up.time Data Collector: {0}"),
+	DuplicateVmwareUuid(
+			"UT-1037",
+			HttpServletResponse.SC_BAD_REQUEST,
+			"This element with UUID {0} already exists within a virtual center in up.time"),
+	EmptyHostname("UT-1038", HttpServletResponse.SC_BAD_REQUEST, "Host name missing or blank"),
+	EmptyDisplayName("UT-1039", HttpServletResponse.SC_BAD_REQUEST, "Display name missing or blank"),
+	SpacesInHostname(
+			ElementBodyErrorCodes.SPACES_IN_HOSTNAME_1040,
+			HttpServletResponse.SC_BAD_REQUEST,
+			"Host name cannot have spaces in it"),
+	ProxyError("UT-1041", HttpServletResponse.SC_BAD_REQUEST, "Proxy Error: {0}"),
+	HmcViolation("UT-1042", HttpServletResponse.SC_BAD_REQUEST, "HMC Error: {0}"),
+	MissingField(ElementBodyErrorCodes.MISSING_FIELD_1043, HttpServletResponse.SC_BAD_REQUEST, "{0}"),
+	FieldNumberOutOfRange(ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE_1044, HttpServletResponse.SC_BAD_REQUEST, "{0}"),
+	FieldTooLong(ElementBodyErrorCodes.TOO_LONG_1045, HttpServletResponse.SC_BAD_REQUEST, "{0}"),
 	KnownCoreError("DUMMY-SUPPLIED_BY_CORE", HttpServletResponse.SC_BAD_REQUEST, "{0}");
 
 	private final String code;
 	private final int httpStatus;
 	private final String description;
+	private final UptimeError uptimeError;
 
 	private UptimeErrorEnum(String code, int httpStatus, String description) {
 		this.code = code;
 		this.httpStatus = httpStatus;
 		this.description = description;
+		this.uptimeError = new ForwardingUptimeError(this);
 	}
 
-	@Override
+	private static class ForwardingUptimeError implements UptimeError {
+
+		private final UptimeErrorEnum uptimeErrorEnum;
+
+		public ForwardingUptimeError(UptimeErrorEnum uptimeErrorEnum) {
+			this.uptimeErrorEnum = uptimeErrorEnum;
+		}
+
+		@Override
+		public String getCode() {
+			return uptimeErrorEnum.getCode();
+		}
+
+		@Override
+		public int getHttpStatus() {
+			return uptimeErrorEnum.getHttpStatus();
+		}
+
+		@Override
+		public String getDescription() {
+			return uptimeErrorEnum.getDescription();
+		}
+
+		@Override
+		public int hashCode() {
+			return UptimeError.EQUIVALENCE.hash(this);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null || !(obj instanceof UptimeError)) {
+				return false;
+			}
+			UptimeError other = (UptimeError) obj;
+			return UptimeError.EQUIVALENCE.equivalent(this, other);
+		}
+
+		@Override
+		public String toString() {
+			return com.google.common.base.Objects.toStringHelper(this).add("code", uptimeErrorEnum.getCode())
+					.add("httpStatus", uptimeErrorEnum.getHttpStatus()).add("description", uptimeErrorEnum.getDescription())
+					.toString();
+		}
+
+	}
+
 	public String getCode() {
 		return code;
 	}
 
-	@Override
 	public int getHttpStatus() {
 		return httpStatus;
 	}
 
-	@Override
 	public String getDescription() {
 		return description;
+	}
+
+	public UptimeError asUptimeError() {
+		return uptimeError;
 	}
 
 }

@@ -1,10 +1,8 @@
 package com.uptimesoftware.business.element;
 
 public class ElementBodyErrorCodes {
-	public static final String MISSING_FIELD = "UT-2000";
-	public static final String NUMBER_OUT_OF_RANGE = "UT-2001";
-	public static final String TOO_LONG = "UT-2002";
-	public static final String DUPLICATE_HOSTNAME = "UT-2003";
-	public static final String LICENSE_VIOLATION = "UT-2005";
-	public static final String SPACES_IN_HOSTNAME = "UT-2006";
+	public static final String MISSING_FIELD_1043 = "UT-1043";
+	public static final String NUMBER_OUT_OF_RANGE_1044 = "UT-1044";
+	public static final String TOO_LONG_1045 = "UT-1045";
+	public static final String SPACES_IN_HOSTNAME_1040 = "UT-1040";
 }

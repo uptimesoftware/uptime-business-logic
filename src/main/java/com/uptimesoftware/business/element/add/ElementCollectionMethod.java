@@ -21,7 +21,7 @@ import com.uptimesoftware.business.element.ElementConstantStrings;
 		@Type(value = AddNetworkDeviceElementCollectionMethod.class, name = ElementConstantStrings.NETWORK_DEVICE_CONNECTION_TYPE_JSON_VALUE) })
 public abstract class ElementCollectionMethod {
 
-	@NotNull(message = "A valid connectionType value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD)
+	@NotNull(message = "A valid connectionType value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043)
 	private final ElementConnectionTypeEnum connectionType;
 
 	protected ElementCollectionMethod(ElementConnectionTypeEnum connectionType) {
