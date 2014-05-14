@@ -1,19 +1,13 @@
 package com.uptimesoftware.business.element.add;
 
-import net.sf.oval.constraint.CheckWith;
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.Min;
-import net.sf.oval.constraint.NotBlank;
-import net.sf.oval.constraint.NotNull;
-
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementTypeEnum;
 import com.uptimesoftware.business.elementgroup.ElementGroups;
 import com.uptimesoftware.business.validation.oval.ContainsNoWhitespaceCheck;
 import com.uptimesoftware.business.validation.oval.ValidateNestedProperty;
+import net.sf.oval.constraint.*;
 
 public class AddElementBasicInfo {
 

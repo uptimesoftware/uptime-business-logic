@@ -1,9 +1,9 @@
 package com.uptimesoftware.business.json.error;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonProperty;
+import java.util.Objects;
 
 /**
  * When the core returns an api error to the controller it also needs to tell it what http response code to use.

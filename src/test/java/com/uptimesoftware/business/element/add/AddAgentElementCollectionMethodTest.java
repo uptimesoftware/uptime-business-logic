@@ -1,18 +1,16 @@
 package com.uptimesoftware.business.element.add;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uptimesoftware.business.validation.oval.ValidatorFactory;
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.Validator;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
 
-import net.sf.oval.ConstraintViolation;
-import net.sf.oval.Validator;
-
-import org.codehaus.jackson.map.ObjectMapper;
-import org.junit.Test;
-
-import com.uptimesoftware.business.validation.oval.ValidatorFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class AddAgentElementCollectionMethodTest {
 

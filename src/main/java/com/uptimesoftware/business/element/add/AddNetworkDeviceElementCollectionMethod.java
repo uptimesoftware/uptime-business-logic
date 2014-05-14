@@ -1,20 +1,8 @@
 package com.uptimesoftware.business.element.add;
 
-import java.io.Serializable;
-import java.util.EnumSet;
-import java.util.Map;
-import java.util.Objects;
-
-import net.sf.oval.constraint.CheckWith;
-import net.sf.oval.constraint.CheckWithCheck;
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotNull;
-import net.sf.oval.constraint.Range;
-
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Enums;
 import com.google.common.base.Objects.ToStringHelper;
 import com.google.common.base.Strings;
@@ -24,6 +12,12 @@ import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
 import com.uptimesoftware.business.snmp.SnmpV3AuthenticationMethod;
 import com.uptimesoftware.business.snmp.SnmpV3PrivacyType;
 import com.uptimesoftware.business.snmp.SnmpVersion;
+import net.sf.oval.constraint.*;
+
+import java.io.Serializable;
+import java.util.EnumSet;
+import java.util.Map;
+import java.util.Objects;
 
 public class AddNetworkDeviceElementCollectionMethod extends ElementCollectionMethod {
 

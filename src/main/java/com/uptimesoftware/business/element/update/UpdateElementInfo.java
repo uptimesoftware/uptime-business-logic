@@ -1,18 +1,12 @@
 package com.uptimesoftware.business.element.update;
 
-import net.sf.oval.constraint.CheckWith;
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.Min;
-import net.sf.oval.constraint.NotBlank;
-import net.sf.oval.constraint.NotNull;
-
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.elementgroup.ElementGroups;
 import com.uptimesoftware.business.validation.oval.ContainsNoWhitespaceCheck;
+import net.sf.oval.constraint.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateElementInfo {

@@ -1,12 +1,11 @@
 package com.uptimesoftware.business.json.error;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uptimesoftware.business.error.UptimeError;
+
 import java.text.MessageFormat;
 import java.util.Objects;
-
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonProperty;
-
-import com.uptimesoftware.business.error.UptimeError;
 
 public class ApiError {
 	private final String error;

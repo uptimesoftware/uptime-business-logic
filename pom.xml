@@ -10,7 +10,7 @@
         <version>1.1.7-SNAPSHOT</version>
     </parent>
 	<properties>
-		<jackson.version>1.9.3</jackson.version>
+		<jackson.version>2.3.3</jackson.version>
 	</properties>
 	<repositories>
 		<!-- We need to define this repository explicitly to find the parent POM, after that everything else will resolve normally. -->
@@ -75,14 +75,19 @@
 			<artifactId>oval</artifactId>
 			<version>1.82</version>
 		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>

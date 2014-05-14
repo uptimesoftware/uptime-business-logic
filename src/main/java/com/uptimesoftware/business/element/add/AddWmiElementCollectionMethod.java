@@ -1,16 +1,14 @@
 package com.uptimesoftware.business.element.add;
 
-import java.util.Objects;
-
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotNull;
-
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects.ToStringHelper;
 import com.uptimesoftware.business.element.ElementBodyErrorCodes;
 import com.uptimesoftware.business.element.ElementConnectionTypeEnum;
+import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotNull;
+
+import java.util.Objects;
 
 public class AddWmiElementCollectionMethod extends ElementCollectionMethod {
 

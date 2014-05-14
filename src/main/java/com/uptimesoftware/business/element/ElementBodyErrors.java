@@ -1,20 +1,17 @@
 package com.uptimesoftware.business.element;
 
-import java.util.Iterator;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import net.sf.oval.ConstraintViolation;
-import net.sf.oval.context.FieldContext;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.uptimesoftware.business.validation.oval.ConstraintViolations;
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.context.FieldContext;
+
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
 
 public class ElementBodyErrors implements Iterable<ElementBodyError> {
 
