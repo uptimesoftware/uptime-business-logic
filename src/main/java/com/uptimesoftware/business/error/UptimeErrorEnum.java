@@ -15,6 +15,14 @@ public enum UptimeErrorEnum {
 			"UT-0400",
 			HttpServletResponse.SC_BAD_REQUEST,
 			"Bad request: {0} caused an exception (stack trace in uptime_controller.log @ {1})."),
+	AuthorizationException(
+			"UT-0401",
+			HttpServletResponse.SC_UNAUTHORIZED,
+			"Failed To login. Reason: {0}"),
+	NotAuthorized(
+			"UT-0401",
+			HttpServletResponse.SC_UNAUTHORIZED,
+			"Full authentication is required to access this resource."),
 	MethodNotAllowed(
 			"UT-0405",
 			HttpServletResponse.SC_METHOD_NOT_ALLOWED,
@@ -131,6 +139,11 @@ public enum UptimeErrorEnum {
 	MissingField(ElementBodyErrorCodes.MISSING_FIELD_1043, HttpServletResponse.SC_BAD_REQUEST, "{0}"),
 	FieldNumberOutOfRange(ElementBodyErrorCodes.NUMBER_OUT_OF_RANGE_1044, HttpServletResponse.SC_BAD_REQUEST, "{0}"),
 	FieldTooLong(ElementBodyErrorCodes.TOO_LONG_1045, HttpServletResponse.SC_BAD_REQUEST, "{0}"),
+	InvalidRequestParams(
+			"UT-1046",
+			HttpServletResponse.SC_BAD_REQUEST,
+			"The parameter sent in the request is invalid: ''{0}''"),
+
 	KnownCoreError("DUMMY-SUPPLIED_BY_CORE", HttpServletResponse.SC_BAD_REQUEST, "{0}");
 
 	private final String code;
