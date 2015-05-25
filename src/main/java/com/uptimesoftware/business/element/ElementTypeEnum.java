@@ -10,7 +10,9 @@ import java.util.Map;
 public enum ElementTypeEnum {
 	Server("Server"),
 	NetworkDevice("Network Device"),
-	Application("Application");
+	Application("Application"),
+	JavaApp("JavaApp"),
+	JavaAppInstance("JavaAppInstance");
 
 	private static final Map<String, ElementTypeEnum> JSON_NAMES_MAP;
 

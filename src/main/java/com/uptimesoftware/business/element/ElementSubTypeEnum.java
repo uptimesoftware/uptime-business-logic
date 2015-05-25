@@ -15,7 +15,9 @@ public enum ElementSubTypeEnum {
 	VcenterHostSystem(ElementTypeEnum.Server, "VMware vSphere Server"),
 	Unknown(ElementTypeEnum.Server, "Unknown"),
 	Switch(ElementTypeEnum.NetworkDevice, "Switch"),
-	Application(ElementTypeEnum.Application, "Application");
+	Application(ElementTypeEnum.Application, "Application"),
+	JavaApp(ElementTypeEnum.JavaApp, "JavaApp"),
+	JavaAppInstance(ElementTypeEnum.JavaAppInstance, "JavaAppInstance");
 
 	private final ElementTypeEnum elementType;
 	private final String defaultName;
@@ -44,6 +46,12 @@ public enum ElementSubTypeEnum {
 		if (ElementSubTypeEnum.isServerType(entityType, entitySubType)) {
 			return ElementSubTypeEnum.getServerSubType(entitySubType, arch, osver);
 		}
+		if (ElementSubTypeEnum.isJavaApplicationType(entityType)) {
+			return JavaApp;
+		}
+		if (ElementSubTypeEnum.isJavaApplicationInsType(entityType)) {
+			return JavaAppInstance;
+		}
 		// if we don't know the parent type, then this subtype is irrelevent
 		return null;
 	}
@@ -60,6 +68,14 @@ public enum ElementSubTypeEnum {
 		return EntityTypeEnum.System == entityType
 				|| (EntityTypeEnum.Node == entityType && EntitySubTypeEnum.VirtualNode == entitySubType)
 				|| (EntityTypeEnum.VmwareObject == entityType && !entitySubType.isVmwareGroup());
+	}
+	
+	static private boolean isJavaApplicationType(EntityTypeEnum entityType) {
+		return EntityTypeEnum.JavaApp == entityType;
+	}
+	
+	static private boolean isJavaApplicationInsType(EntityTypeEnum entityType) {
+		return EntityTypeEnum.JavaAppInstance == entityType;
 	}
 
 	static private ElementSubTypeEnum getServerSubTypeFromOs(String arch, String osver) {
