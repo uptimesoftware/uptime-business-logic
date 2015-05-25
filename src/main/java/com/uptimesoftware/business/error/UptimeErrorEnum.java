@@ -144,7 +144,8 @@ public enum UptimeErrorEnum {
 			HttpServletResponse.SC_BAD_REQUEST,
 			"The parameter sent in the request is invalid: ''{0}''"),
 
-	KnownCoreError("DUMMY-SUPPLIED_BY_CORE", HttpServletResponse.SC_BAD_REQUEST, "{0}");
+	KnownCoreError("DUMMY-SUPPLIED_BY_CORE", HttpServletResponse.SC_BAD_REQUEST, "{0}"),
+	MetricDoesNotExist("UT-1047", HttpServletResponse.SC_NOT_FOUND, "Metric for element id ''{0}'' does not exist.");
 
 	private final String code;
 	private final int httpStatus;

@@ -20,7 +20,9 @@ public enum EntitySubTypeEnum {
 	ResourcePool(18),
 	VirtualApp(19),
 	HostSystem(20),
-	VirtualMachine(21);
+	VirtualMachine(21),
+	JavaApp(22),
+	JavaAppInstance(23);
 
 	public final long id;
 

@@ -5,7 +5,9 @@ public enum EntityTypeEnum {
 	Node(2),
 	Application(3),
 	ServiceLevelAgreement(4),
-	VmwareObject(6);
+	VmwareObject(6),
+	JavaApp(7),
+	JavaAppInstance(8);
 
 	public final int id;
 
