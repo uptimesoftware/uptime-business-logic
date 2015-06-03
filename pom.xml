@@ -24,16 +24,13 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<tagBase>${uptime.release.tagBase.root}/uptime-common/uptime-business-logic/tags</tagBase>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<scm>
-		<url>${uptime.scm.url.root}&amp;path=%2Fuptime-common%2Fuptime-business-logic%2Ftrunk%2F</url>
-		<connection>${uptime.scm.connection.root}/uptime-common/uptime-business-logic/trunk</connection>
-		<developerConnection>${uptime.scm.connection.root}/uptime-common/uptime-business-logic/trunk</developerConnection>
+		<url>https://github.com/uptimesoftware/uptime-business-logic.git</url>
+		<connection>scm:git:https://github.com/uptimesoftware/uptime-business-logic.git</connection>
+		<developerConnection>scm:git:https://github.com/uptimesoftware/uptime-business-logic.git</developerConnection>
 	</scm>
 	<dependencies>
 		<dependency>
