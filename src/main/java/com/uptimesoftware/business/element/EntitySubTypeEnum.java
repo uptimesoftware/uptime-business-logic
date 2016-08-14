@@ -22,7 +22,9 @@ public enum EntitySubTypeEnum {
 	HostSystem(20),
 	VirtualMachine(21),
 	JavaApp(22),
-	JavaAppInstance(23);
+	JavaAppInstance(23),
+	SnmpV1(24),
+	HyperVHost(25);	
 
 	public final long id;
 

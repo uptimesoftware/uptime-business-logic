@@ -7,7 +7,8 @@ public enum EntityTypeEnum {
 	ServiceLevelAgreement(4),
 	VmwareObject(6),
 	JavaApp(7),
-	JavaAppInstance(8);
+	JavaAppInstance(8),
+	HyperVObject(9);			
 
 	public final int id;
 
