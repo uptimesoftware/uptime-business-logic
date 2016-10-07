@@ -25,7 +25,8 @@ public enum EntitySubTypeEnum {
 	JavaAppInstance(23),
 	SnmpV1(24),
 	HyperVHost(25),			
-	HyperVirtualMachine(26);
+	HyperVirtualMachine(26),
+	Snapshot(27);
 	
 
 	public final long id;
