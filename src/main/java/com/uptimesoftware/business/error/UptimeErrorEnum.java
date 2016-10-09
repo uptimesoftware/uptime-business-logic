@@ -127,7 +127,7 @@ public enum UptimeErrorEnum {
 	DuplicateVmwareUuid(
 			"UT-1037",
 			HttpServletResponse.SC_BAD_REQUEST,
-			"This element with UUID {0} already exists within a virtual center in up.time"),
+			"This element with UUID {0} already exists within a virtual center in Uptime"),
 	EmptyHostname("UT-1038", HttpServletResponse.SC_BAD_REQUEST, "Host name missing or blank"),
 	EmptyDisplayName("UT-1039", HttpServletResponse.SC_BAD_REQUEST, "Display name missing or blank"),
 	SpacesInHostname(
