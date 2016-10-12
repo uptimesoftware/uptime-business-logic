@@ -17,7 +17,8 @@ public enum ElementSubTypeEnum {
 	Switch(ElementTypeEnum.NetworkDevice, "Switch"),
 	Application(ElementTypeEnum.Application, "Application"),
 	JavaApp(ElementTypeEnum.JavaApp, "JavaApp"),
-	JavaAppInstance(ElementTypeEnum.JavaAppInstance, "JavaAppInstance");
+	JavaAppInstance(ElementTypeEnum.JavaAppInstance, "JavaAppInstance"),
+	HyperVHost(ElementTypeEnum.Server, "Hyper-V Host Server");
 
 	private final ElementTypeEnum elementType;
 	private final String defaultName;
@@ -67,7 +68,7 @@ public enum ElementSubTypeEnum {
 	static private boolean isServerType(EntityTypeEnum entityType, EntitySubTypeEnum entitySubType) {
 		return EntityTypeEnum.System == entityType
 				|| (EntityTypeEnum.Node == entityType && EntitySubTypeEnum.VirtualNode == entitySubType)
-				|| (EntityTypeEnum.VmwareObject == entityType && !entitySubType.isVmwareGroup());
+				|| (EntityTypeEnum.VmwareObject == entityType && !entitySubType.isVmwareGroup())
 	}
 	
 	static private boolean isJavaApplicationType(EntityTypeEnum entityType) {
