@@ -69,6 +69,7 @@ public enum ElementSubTypeEnum {
 		return EntityTypeEnum.System == entityType
 				|| (EntityTypeEnum.Node == entityType && EntitySubTypeEnum.VirtualNode == entitySubType)
 				|| (EntityTypeEnum.VmwareObject == entityType && !entitySubType.isVmwareGroup())
+	            || (EntityTypeEnum.HyperVObject == entityType && EntitySubTypeEnum.Snapshot != entitySubType);
 	}
 	
 	static private boolean isJavaApplicationType(EntityTypeEnum entityType) {
