@@ -118,7 +118,7 @@ public enum UptimeErrorEnum {
 	WmiNotSupported(
 			"UT-1034",
 			HttpServletResponse.SC_BAD_REQUEST,
-			"The up.time Data Collector does not support WMI communication."),
+			"The Uptime Data Collector does not support WMI communication."),
 	UnknownAddElementError(
 			"UT-1035",
 			HttpServletResponse.SC_BAD_REQUEST,

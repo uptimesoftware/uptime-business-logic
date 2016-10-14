@@ -22,7 +22,12 @@ public enum ElementConnectionTypeEnum {
 			ElementConstantStrings.NETWORK_DEVICE_CONNECTION_TYPE_JSON_VALUE,
 			ElementConstantStrings.ADD_NETWORK_DEVICE_RPC_SERVICE,
 			EntityTypeEnum.Node,
-			EntitySubTypeEnum.NetworkDevice);
+			EntitySubTypeEnum.NetworkDevice),
+	Hyperv(
+			ElementConstantStrings.HYPERV_CONNECTION_TYPE_JSON_VALUE,
+			ElementConstantStrings.ADD_HYPERV_RPC_SERVICE,
+			EntityTypeEnum.HyperVObject,
+			EntitySubTypeEnum.HyperVHost);
 
 	private static final Map<String, ElementConnectionTypeEnum> JSON_NAMES_MAP;
 

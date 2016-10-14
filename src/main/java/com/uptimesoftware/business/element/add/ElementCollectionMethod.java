@@ -15,7 +15,8 @@ import java.util.Objects;
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = AddAgentElementCollectionMethod.class, name = ElementConstantStrings.AGENT_CONNECTION_TYPE_JSON_VALUE),
 		@JsonSubTypes.Type(value = AddWmiElementCollectionMethod.class, name = ElementConstantStrings.WMI_CONNECTION_TYPE_JSON_VALUE),
-		@JsonSubTypes.Type(value = AddNetworkDeviceElementCollectionMethod.class, name = ElementConstantStrings.NETWORK_DEVICE_CONNECTION_TYPE_JSON_VALUE) })
+		@JsonSubTypes.Type(value = AddNetworkDeviceElementCollectionMethod.class, name = ElementConstantStrings.NETWORK_DEVICE_CONNECTION_TYPE_JSON_VALUE),
+		@JsonSubTypes.Type(value = AddHypervElementCollectionMethod.class, name = ElementConstantStrings.HYPERV_CONNECTION_TYPE_JSON_VALUE) })
 public abstract class ElementCollectionMethod {
 
 	@NotNull(message = "A valid connectionType value is required", errorCode = ElementBodyErrorCodes.MISSING_FIELD_1043)
