@@ -132,6 +132,9 @@ public enum ElementSubTypeEnum {
 
 		case HostSystem:
 			return VcenterHostSystem;
+			
+		case HyperVHost:
+			return HyperVHost;
 
 		case VmwareEsx:
 			return EsxServer;
