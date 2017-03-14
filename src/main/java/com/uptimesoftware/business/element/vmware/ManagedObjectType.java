@@ -20,10 +20,11 @@ public enum ManagedObjectType {
 	PerformanceManager,
 	HyperVHostSystem,
 	HyperVVirtualMachine,
-	Snapshot;
+	Snapshot,
+	StoragePod;
 
 	public static final Set<ManagedObjectType> VmwareGroupTypes = Collections.unmodifiableSet(EnumSet.of(Folder, Datacenter,
-			ClusterComputeResource, ComputeResource, ResourcePool, VirtualApp));
+			ClusterComputeResource, ComputeResource, ResourcePool, VirtualApp, StoragePod));
 	public static final Set<ManagedObjectType> VmwareLeafTypes = Collections.unmodifiableSet(EnumSet.of(VirtualMachine,
 			HostSystem));
 
